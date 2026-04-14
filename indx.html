@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>WILD KITCHEN | Premium Menu & Online Payment</title>
+  <!-- Google Fonts & Simple CSS Reset -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f7f5f0;
+      font-family: 'Inter', sans-serif;
+      color: #1e1e2a;
+      padding: 32px 24px 64px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .hero {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #c47b2e, #a85c1c);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .hero p {
+      color: #5a4a3a;
+      font-weight: 500;
+      border-top: 2px solid #e6d9cc;
+      display: inline-block;
+      padding-top: 8px;
+    }
+
+    /* two column layout for menu + payment */
+    .menu-payment-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+
+    /* MENU SECTION (scrollable & modern) */
+    .menu-section {
+      flex: 2;
+      min-width: 280px;
+      background: white;
+      border-radius: 32px;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
+      padding: 24px 20px;
+      transition: all 0.2s;
+    }
+
+    /* category tabs style */
+    .category-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 28px;
+      border-bottom: 2px solid #f0e7de;
+      padding-bottom: 16px;
+    }
+
+    .cat-btn {
+      background: none;
+      border: none;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 8px 20px;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: 0.2s;
+      color: #6b5a4b;
+      font-family: inherit;
+    }
+
+    .cat-btn.active {
+      background: #c47b2e;
+      color: white;
+      box-shadow: 0 4px 10px rgba(196, 123, 46, 0.3);
+    }
+
+    .cat-btn:hover:not(.active) {
+      background: #f1e8df;
+      color: #a85c1c;
+    }
+
+    .menu-category {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .menu-category.active-cat {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      padding: 14px 0;
+      border-bottom: 1px dashed #ece2d8;
+    }
+
+    .item-info {
+      flex: 3;
+    }
+
+    .item-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .item-name strong {
+      color: #2b2b2b;
+    }
+
+    .ingredients {
+      font-size: 0.75rem;
+      color: #8a7a68;
+      margin-top: 6px;
+      line-height: 1.4;
+      max-width: 90%;
+    }
+
+    .item-price {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #c47b2e;
+      background: #fff1e6;
+      padding: 4px 12px;
+      border-radius: 40px;
+      min-width: 80px;
+      text-align: center;
+    }
+
+    .add-to-cart {
+      margin-top: 8px;
+      background: #1e1e2a;
+      border: none;
+      color: white;
+      font-size: 0.7rem;
+      padding: 5px 12px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    .add-to-cart:hover {
+      background: #c47b2e;
+      transform: scale(0.96);
+    }
+
+    /* payment card */
+    .payment-sidebar {
+      flex: 1.2;
+      min-width: 320px;
+      background: white;
+      border-radius: 32px;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+      padding: 24px;
+      align-self: start;
+      position: sticky;
+      top: 24px;
+    }
+
+    .cart-header {
+      font-size: 1.6rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 3px solid #f0e2d4;
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }
+
+    .cart-items {
+      max-height: 340px;
+      overflow-y: auto;
+      margin-bottom: 24px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      font-size: 0.85rem;
+      background: #fefaf5;
+      padding: 8px 12px;
+      border-radius: 20px;
+    }
+
+    .cart-item span:first-child {
+      font-weight: 500;
+    }
+
+    .cart-total {
+      font-size: 1.4rem;
+      font-weight: 800;
+      border-top: 2px solid #e1cfbe;
+      padding-top: 16px;
+      margin: 16px 0;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* bank card demo */
+    .bank-demo {
+      background: linear-gradient(145deg, #1b2a3f, #0f1a24);
+      border-radius: 28px;
+      padding: 20px;
+      margin: 20px 0;
+      color: white;
+      box-shadow: 0 12px 18px -8px rgba(0,0,0,0.2);
+    }
+
+    .bank-demo h4 {
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      opacity: 0.8;
+    }
+
+    .demo-card-number {
+      font-family: monospace;
+      font-size: 1.3rem;
+      letter-spacing: 2px;
+      margin: 12px 0;
+      font-weight: 600;
+    }
+
+    .demo-details {
+      display: flex;
+      gap: 20px;
+      font-size: 0.8rem;
+    }
+
+    .pay-btn {
+      background: #2b6e3c;
+      width: 100%;
+      border: none;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 44px;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .pay-btn:hover {
+      background: #1f5430;
+      transform: translateY(-2px);
+    }
+
+    .reset-btn {
+      background: #d9cdbc;
+      color: #3a2c1f;
+      margin-top: 10px;
+    }
+
+    .status {
+      margin-top: 16px;
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 8px;
+      border-radius: 60px;
+      background: #f0e9e2;
+    }
+
+    .free-img {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 16px;
+      font-size: 0.7rem;
+      color: #bc9a6f;
+    }
+
+    @media (max-width: 800px) {
+      body {
+        padding: 16px;
+      }
+      .payment-sidebar {
+        position: relative;
+        top: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🍽️ WILD KITCHEN</h1>
+    <p>Artisanal flavors • Fresh ingredients • Instant payment demo</p>
+  </div>
+
+  <div class="menu-payment-grid">
+    <!-- MENU AREA -->
+    <div class="menu-section">
+      <div class="category-tabs">
+        <button class="cat-btn active" data-cat="sandwiches">🥪 SANDWICHES</button>
+        <button class="cat-btn" data-cat="chickens">🍗 CHICKENS</button>
+        <button class="cat-btn" data-cat="snacks">🌯 SNACK & WRAPS</button>
+        <button class="cat-btn" data-cat="breakfast">🍳 BREAKFAST</button>
+      </div>
+
+      <!-- Sandwiches -->
+      <div id="sandwiches" class="menu-category active-cat">
+        <div class="menu-item" data-name="Beef Steak Sandwich" data-price="690">
+          <div class="item-info"><div class="item-name"><strong>BEEF STEAK SANDWICH</strong></div><div class="ingredients">Beef, onion, tomato, zucchini, oil, cheese, brown bread</div></div>
+          <div class="item-price">690 EGP</div>
+          <button class="add-to-cart">+ Add</button>
+        </div>
+        <div class="menu-item" data-name="Vegetable Sandwich" data-price="400"><div class="item-info"><div class="item-name"><strong>VEGETABLE SANDWICH</strong></div><div class="ingredients">Tomato, onion, zucchini, cabbage, carrot, oil, garlic powder</div></div><div class="item-price">400 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Egg Sandwich" data-price="390"><div class="item-info"><div class="item-name"><strong>EGG SANDWICH</strong></div><div class="ingredients">Tomato, onion, lettuce, egg, brown bread</div></div><div class="item-price">390 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Tuna Sandwich" data-price="700"><div class="item-info"><div class="item-name"><strong>TUNA SANDWICH</strong></div><div class="ingredients">Tomato, onion, mayonnaise, tuna, oil, sliced bread</div></div><div class="item-price">700 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="House Special Club" data-price="770"><div class="item-info"><div class="item-name"><strong>HOUSE SPECIAL CLUB</strong></div><div class="ingredients">Tomato, onion, mayo, grilled chicken, egg, oil</div></div><div class="item-price">770 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Chicken Cheese Sandwich" data-price="730"><div class="item-info"><div class="item-name"><strong>CHICKEN CHEESE SANDWICH</strong></div><div class="ingredients">Tomato, onion, mayo, grilled chicken, cheese, oil</div></div><div class="item-price">730 EGP</div><button class="add-to-cart">+ Add</button></div>
+      </div>
+
+      <!-- Chickens -->
+      <div id="chickens" class="menu-category">
+        <div class="menu-item" data-name="Chicken Breast" data-price="990"><div class="item-info"><div class="item-name"><strong>CHICKEN BREAST</strong></div><div class="ingredients">Grilled chicken breast, onion, tomato, zucchini, garlic powder, frisée</div></div><div class="item-price">990 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Chicken Leg" data-price="950"><div class="item-info"><div class="item-name"><strong>CHICKEN LEG</strong></div><div class="ingredients">Grilled leg, BBQ sauce, mustard, baro, garlic, fries</div></div><div class="item-price">950 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Chicken Wing" data-price="930"><div class="item-info"><div class="item-name"><strong>CHICKEN WING</strong></div><div class="ingredients">Grilled wings, BBQ sauce, mustard, baro, fries</div></div><div class="item-price">930 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Chicken Nugget" data-price="950"><div class="item-info"><div class="item-name"><strong>CHICKEN NUGGET</strong></div><div class="ingredients">Curry powder, BBQ sauce, mustard, baro, fries</div></div><div class="item-price">950 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Chicken Cutlet" data-price="930"><div class="item-info"><div class="item-name"><strong>CHICKEN CUTLET</strong></div><div class="ingredients">Curry powder, egg, BBQ, mustard, fries</div></div><div class="item-price">930 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Chicken Salad" data-price="850"><div class="item-info"><div class="item-name"><strong>CHICKEN SALAD</strong></div><div class="ingredients">Lettuce, tomato, onion, cucumber, dressing, mustard</div></div><div class="item-price">850 EGP</div><button class="add-to-cart">+ Add</button></div>
+      </div>
+
+      <!-- SNACKS & WRAPS -->
+      <div id="snacks" class="menu-category">
+        <div class="menu-item" data-name="Veggie Mini Burger" data-price="390"><div class="item-info"><div class="item-name"><strong>VEGETABLE MINI BURGER</strong></div><div class="ingredients">Tomato, onion, boiled beans, lettuce, oil</div></div><div class="item-price">390 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Beef Mini Burger" data-price="430"><div class="item-info"><div class="item-name"><strong>BEEF MINI BURGER</strong></div><div class="ingredients">Grilled minced beef, tomato, onion, lettuce</div></div><div class="item-price">430 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Chicken Wrap" data-price="710"><div class="item-info"><div class="item-name"><strong>CHICKEN WRAP</strong></div><div class="ingredients">Teff flour, chicken, caesar dressing, lettuce</div></div><div class="item-price">710 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Vegetable Wrap" data-price="400"><div class="item-info"><div class="item-name"><strong>VEGETABLE WRAP</strong></div><div class="ingredients">Tomato, onion, cabbage, carrot, cucumber, zucchini</div></div><div class="item-price">400 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Beef Burrito" data-price="790"><div class="item-info"><div class="item-name"><strong>BEEF BURRITO</strong></div><div class="ingredients">Tomato, onion, carrot, beef, flour</div></div><div class="item-price">790 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Chicken Burrito" data-price="790"><div class="item-info"><div class="item-name"><strong>CHICKEN BURRITO</strong></div><div class="ingredients">Tomato, onion, carrot, chicken, flour</div></div><div class="item-price">790 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Fried Egg with Avocado" data-price="480"><div class="item-info"><div class="item-name"><strong>FRIED EGG & AVOCADO</strong></div><div class="ingredients">Tomato, onion, lettuce, fried egg, avocado, olive oil</div></div><div class="item-price">480 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Fried Chicken & Spinach" data-price="950"><div class="item-info"><div class="item-name"><strong>FRIED CHICKEN + SPINACH</strong></div><div class="ingredients">Fried chicken, spinach, boiled egg, onion</div></div><div class="item-price">950 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Polpette with Avocado" data-price="750"><div class="item-info"><div class="item-name"><strong>POLPETTE WITH AVOCADO</strong></div><div class="ingredients">Cheese, egg, bread, fresh avocado</div></div><div class="item-price">750 EGP</div><button class="add-to-cart">+ Add</button></div>
+      </div>
+
+      <!-- BREAKFAST MENU -->
+      <div id="breakfast" class="menu-category">
+        <div class="menu-item" data-name="Wild Combo" data-price="690"><div class="item-info"><div class="item-name"><strong>WILD COMBO</strong></div><div class="ingredients">Waffle, chicken, beef sausage, fried egg, toasted bread</div></div><div class="item-price">690 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Special Foul" data-price="480"><div class="item-info"><div class="item-name"><strong>SPECIAL FOUL</strong></div><div class="ingredients">Tomato, onion, beans, egg, brown bread</div></div><div class="item-price">480 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Teff Checkeressa" data-price="420"><div class="item-info"><div class="item-name"><strong>TEFF CHECKERESSA</strong></div><div class="ingredients">Teff flour, olive oil, honey</div></div><div class="item-price">420 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Waffle & Chicken" data-price="480"><div class="item-info"><div class="item-name"><strong>WAFFLE & CHICKEN</strong></div><div class="ingredients">Fried chicken, flour, egg, milk</div></div><div class="item-price">480 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Wild Toast" data-price="430"><div class="item-info"><div class="item-name"><strong>WILD TOAST</strong></div><div class="ingredients">Egg, avocado, brown bread</div></div><div class="item-price">430 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="French Toast" data-price="420"><div class="item-info"><div class="item-name"><strong>FRENCH TOAST</strong></div><div class="ingredients">Egg, toasted bread, milk, lettuce</div></div><div class="item-price">420 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Croissant Sandwich" data-price="420"><div class="item-info"><div class="item-name"><strong>CROISSANT SANDWICH</strong></div><div class="ingredients">Croissant, egg, lettuce, tomato</div></div><div class="item-price">420 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Croissant Cheese Beef" data-price="580"><div class="item-info"><div class="item-name"><strong>CROISSANT WITH CHEESE & BEEF HAM</strong></div><div class="ingredients">Beef, sliced cheese, egg, lettuce</div></div><div class="item-price">580 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Wild Omelette" data-price="470"><div class="item-info"><div class="item-name"><strong>WILD SPECIAL OMELETTE</strong></div><div class="ingredients">Egg, spinach, sweet corn, cheese, chilli</div></div><div class="item-price">470 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Egg Benedict Smoked Beef" data-price="520"><div class="item-info"><div class="item-name"><strong>SPECIAL EGG BENEDICT</strong></div><div class="ingredients">Smoked beef, lettuce, ayib, slice bread</div></div><div class="item-price">520 EGP</div><button class="add-to-cart">+ Add</button></div>
+        <div class="menu-item" data-name="Chicken Quesadilla" data-price="790"><div class="item-info"><div class="item-name"><strong>CHICKEN QUESADILLA</strong></div><div class="ingredients">Flour, egg, spinach, grilled chicken</div></div><div class="item-price">790 EGP</div><button class="add-to-cart">+ Add</button></div>
+      </div>
+    </div>
+
+    <!-- PAYMENT SIDEBAR (BANK + DEMO) -->
+    <div class="payment-sidebar">
+      <div class="cart-header">
+        <span>🛒 Your Order</span>
+      </div>
+      <div id="cartItemsList" class="cart-items">
+        <div style="color: #a58e76; text-align: center; padding: 20px;">Your cart is empty — add delicious items ✨</div>
+      </div>
+      <div class="cart-total">
+        <span>Total (EGP)</span>
+        <span id="cartTotalPrice">0</span>
+      </div>
+
+      <!-- BANK PAYMENT DEMO CARD + FREE IMAGES STYLE -->
+      <div class="bank-demo">
+        <h4>🏦 DEMO BANK ACCOUNT (TEST PAYMENT)</h4>
+        <div class="demo-card-number">💳 4242 4242 4242 4242</div>
+        <div class="demo-details">
+          <span>📅 12/28</span>
+          <span>🔒 CVV 123</span>
+          <span>👤 WILD DEMO</span>
+        </div>
+        <div class="free-img" style="margin-top: 10px; justify-content: flex-start; gap: 8px;">
+          <span>✅ Visa test</span> 
+          <span>•</span>
+          <span>🔐 Any future date</span>
+        </div>
+      </div>
+
+      <button id="proceedPayBtn" class="pay-btn">💸 PAY NOW (DEMO)</button>
+      <button id="resetCartBtn" class="pay-btn reset-btn">🗑️ Clear Cart</button>
+      <div id="paymentStatus" class="status">✨ Ready to checkout — use demo card above</div>
+      <div class="free-img" style="margin-top: 16px;">
+        <span>📸 free images • all dishes illustrated</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ----- CART MANAGEMENT -----
+  let cart = [];  // each element { name, price, quantity? we treat each click adds 1 item }
+
+  function updateCartUI() {
+    const cartContainer = document.getElementById('cartItemsList');
+    const totalSpan = document.getElementById('cartTotalPrice');
+    
+    if (!cart.length) {
+      cartContainer.innerHTML = `<div style="color: #a58e76; text-align: center; padding: 20px;">Your cart is empty — add delicious items ✨</div>`;
+      totalSpan.innerText = '0';
+      return;
+    }
+    
+    // group by name to show quantities
+    const grouped = {};
+    cart.forEach(item => {
+      const key = item.name;
+      if (grouped[key]) {
+        grouped[key].qty += 1;
+      } else {
+        grouped[key] = { ...item, qty: 1 };
+      }
+    });
+    
+    let html = '';
+    let total = 0;
+    for (let key in grouped) {
+      const g = grouped[key];
+      const itemTotal = g.price * g.qty;
+      total += itemTotal;
+      html += `
+        <div class="cart-item">
+          <span><strong>${g.qty}x</strong> ${g.name}</span>
+          <span>${itemTotal} EGP</span>
+        </div>
+      `;
+    }
+    cartContainer.innerHTML = html;
+    totalSpan.innerText = total;
+  }
+  
+  function addToCart(name, price) {
+    cart.push({ name, price });
+    updateCartUI();
+    // flash status update
+    const statusDiv = document.getElementById('paymentStatus');
+    statusDiv.innerHTML = `✅ Added "${name}" — total: ${cart.reduce((sum, i) => sum + i.price, 0)} EGP`;
+    setTimeout(() => {
+      if (document.getElementById('paymentStatus').innerHTML.includes('Added')) {
+        document.getElementById('paymentStatus').innerHTML = `✨ Ready to checkout — use demo card above`;
+      }
+    }, 1800);
+  }
+  
+  function resetCart() {
+    cart = [];
+    updateCartUI();
+    document.getElementById('paymentStatus').innerHTML = '🧹 Cart cleared. Add new items!';
+    setTimeout(() => {
+      if(document.getElementById('paymentStatus').innerHTML.includes('cleared'))
+        document.getElementById('paymentStatus').innerHTML = '✨ Ready to checkout — use demo card above';
+    }, 2000);
+  }
+  
+  // DEMO PAYMENT FUNCTION - simulates bank payment
+  function processPayment() {
+    const total = cart.reduce((sum, i) => sum + i.price, 0);
+    if (total === 0) {
+      document.getElementById('paymentStatus').innerHTML = '⚠️ Cart is empty. Please add items before payment.';
+      return;
+    }
+    
+    // simulate bank processing with demo account
+    const statusDiv = document.getElementById('paymentStatus');
+    statusDiv.innerHTML = '🔄 Processing payment via Demo Bank...';
+    setTimeout(() => {
+      // success demo (always success for demo purposes)
+      statusDiv.innerHTML = `✅ PAYMENT SUCCESSFUL! Total ${total} EGP charged to demo card (4242-4242). Thank you! 🎉`;
+      // optional: clear cart after successful payment? but we keep or ask user? according to UX we reset cart after payment?
+      // professional flow: after successful payment, cart resets for new order.
+      cart = [];
+      updateCartUI();
+      // also after 3 sec show ready status
+      setTimeout(() => {
+        if(document.getElementById('paymentStatus').innerHTML.includes('SUCCESSFUL')) {
+          document.getElementById('paymentStatus').innerHTML = '✨ Order placed! Your meal will be prepared.';
+        }
+      }, 4000);
+    }, 1000);
+  }
+  
+  // ----- ADD EVENT LISTENERS FOR ALL ADD BUTTONS (dynamic & static)
+  function attachAddEvents() {
+    const allAddButtons = document.querySelectorAll('.add-to-cart');
+    allAddButtons.forEach(btn => {
+      // avoid duplicate listeners
+      btn.removeEventListener('click', handleAddClick);
+      btn.addEventListener('click', handleAddClick);
+    });
+  }
+  
+  function handleAddClick(e) {
+    const menuItem = e.target.closest('.menu-item');
+    if (!menuItem) return;
+    const nameElem = menuItem.querySelector('.item-name strong');
+    let itemName = nameElem ? nameElem.innerText : menuItem.querySelector('.item-name')?.innerText.split('\n')[0];
+    if (!itemName) {
+      // fallback
+      const firstStrong = menuItem.querySelector('strong');
+      itemName = firstStrong ? firstStrong.innerText : "Wild Dish";
+    }
+    const priceText = menuItem.querySelector('.item-price')?.innerText;
+    const price = parseInt(priceText);
+    if (!isNaN(price)) {
+      addToCart(itemName, price);
+    } else {
+      addToCart(itemName, 0);
+    }
+  }
+  
+  // ----- CATEGORY TABS LOGIC -----
+  function initTabs() {
+    const btns = document.querySelectorAll('.cat-btn');
+    const categories = {
+      sandwiches: document.getElementById('sandwiches'),
+      chickens: document.getElementById('chickens'),
+      snacks: document.getElementById('snacks'),
+      breakfast: document.getElementById('breakfast')
+    };
+    
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cat = btn.getAttribute('data-cat');
+        // remove active from all btns & categories
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        Object.values(categories).forEach(catDiv => {
+          if (catDiv) catDiv.classList.remove('active-cat');
+        });
+        if (cat === 'sandwiches') categories.sandwiches.classList.add('active-cat');
+        if (cat === 'chickens') categories.chickens.classList.add('active-cat');
+        if (cat === 'snacks') categories.snacks.classList.add('active-cat');
+        if (cat === 'breakfast') categories.breakfast.classList.add('active-cat');
+      });
+    });
+  }
+  
+  // initialize everything
+  function init() {
+    initTabs();
+    attachAddEvents();
+    // dynamic because menu items are static, but safe
+    const observer = new MutationObserver(() => attachAddEvents());
+    observer.observe(document.querySelector('.menu-section'), { childList: true, subtree: true });
+    attachAddEvents();
+    
+    const payBtn = document.getElementById('proceedPayBtn');
+    const resetBtn = document.getElementById('resetCartBtn');
+    if (payBtn) payBtn.addEventListener('click', processPayment);
+    if (resetBtn) resetBtn.addEventListener('click', resetCart);
+  }
+  
+  init();
+</script>
+</body>
+</html>

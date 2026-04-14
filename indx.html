@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>WILD KITCHEN | Premium Menu & Online Payment</title>
-  <!-- Google Fonts & Simple CSS Reset -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <title>Oiled Coffee | Artisan Menu & Digital Payment</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -14,306 +13,315 @@
     }
 
     body {
-      background: #f7f5f0;
-      font-family: 'Inter', sans-serif;
-      color: #1e1e2a;
-      padding: 32px 24px 64px;
+      background: #0c0b0a;
+      font-family: 'Space Grotesk', sans-serif;
+      color: #f2eee9;
+      scroll-behavior: smooth;
+    }
+
+    /* premium grain texture overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(rgba(210, 180, 140, 0.03) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+      z-index: 0;
     }
 
     .container {
       max-width: 1400px;
       margin: 0 auto;
+      padding: 24px 28px 60px;
+      position: relative;
+      z-index: 2;
     }
 
-    /* Header */
-    .hero {
-      text-align: center;
+    /* header with oiled coffee vibe */
+    .hero-oil {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      border-bottom: 2px solid #d9b48b30;
+      padding-bottom: 20px;
       margin-bottom: 48px;
     }
 
-    .hero h1 {
-      font-size: 3rem;
+    .logo-area h1 {
+      font-size: 3.4rem;
       font-weight: 700;
       letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #c47b2e, #a85c1c);
+      background: linear-gradient(125deg, #f3cd9b, #c28442, #e7b06e);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      margin-bottom: 8px;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
 
-    .hero p {
-      color: #5a4a3a;
+    .logo-area p {
+      color: #c2a071;
       font-weight: 500;
-      border-top: 2px solid #e6d9cc;
-      display: inline-block;
-      padding-top: 8px;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
     }
 
-    /* two column layout for menu + payment */
-    .menu-payment-grid {
+    .tagline-badge {
+      background: #1f1b16;
+      padding: 8px 18px;
+      border-radius: 60px;
+      font-size: 0.8rem;
+      border: 1px solid #d9a06650;
+      backdrop-filter: blur(4px);
+    }
+
+    /* layout grid */
+    .menu-payment-double {
       display: flex;
       flex-wrap: wrap;
       gap: 32px;
     }
 
-    /* MENU SECTION (scrollable & modern) */
-    .menu-section {
-      flex: 2;
-      min-width: 280px;
-      background: white;
-      border-radius: 32px;
-      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
-      padding: 24px 20px;
-      transition: all 0.2s;
+    /* menu panel */
+    .menu-panel {
+      flex: 2.2;
+      background: #141110e0;
+      backdrop-filter: blur(2px);
+      border-radius: 38px;
+      padding: 28px 24px;
+      border: 1px solid #2f2a24;
+      box-shadow: 0 25px 40px -18px black;
     }
 
-    /* category tabs style */
-    .category-tabs {
+    .category-slider {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 28px;
-      border-bottom: 2px solid #f0e7de;
-      padding-bottom: 16px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid #2f2a24;
+      padding-bottom: 18px;
     }
 
-    .cat-btn {
-      background: none;
-      border: none;
-      font-size: 1rem;
+    .cat-oil {
+      background: transparent;
+      border: 1px solid #4a3e32;
+      color: #e2cfb5;
+      padding: 8px 22px;
+      border-radius: 60px;
       font-weight: 600;
-      padding: 8px 20px;
-      border-radius: 40px;
+      font-size: 0.9rem;
       cursor: pointer;
-      transition: 0.2s;
-      color: #6b5a4b;
+      transition: all 0.2s;
       font-family: inherit;
     }
 
-    .cat-btn.active {
-      background: #c47b2e;
-      color: white;
-      box-shadow: 0 4px 10px rgba(196, 123, 46, 0.3);
+    .cat-oil.active-oil {
+      background: #d9a066;
+      border-color: #d9a066;
+      color: #0c0b0a;
+      box-shadow: 0 0 8px #e2a46e;
     }
 
-    .cat-btn:hover:not(.active) {
-      background: #f1e8df;
-      color: #a85c1c;
+    .cat-oil:hover:not(.active-oil) {
+      background: #2f281f;
+      border-color: #b87a42;
     }
 
-    .menu-category {
+    .menu-category-oil {
       display: none;
-      animation: fadeIn 0.25s ease;
+      animation: fadeSlide 0.25s ease;
     }
 
-    .menu-category.active-cat {
+    .menu-category-oil.active-cat-oil {
       display: block;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px);}
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(8px);}
       to { opacity: 1; transform: translateY(0);}
     }
 
-    .menu-item {
+    .menu-item-oil {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
+      align-items: center;
       flex-wrap: wrap;
-      padding: 14px 0;
-      border-bottom: 1px dashed #ece2d8;
+      padding: 16px 0;
+      border-bottom: 1px solid #2e2822;
+      gap: 12px;
     }
 
-    .item-info {
+    .item-desc {
       flex: 3;
     }
 
-    .item-name {
+    .item-desc h4 {
       font-weight: 700;
-      font-size: 1.05rem;
+      font-size: 1.12rem;
+      letter-spacing: -0.2px;
       display: flex;
       flex-wrap: wrap;
-      align-items: baseline;
       gap: 8px;
+      align-items: baseline;
     }
 
-    .item-name strong {
-      color: #2b2b2b;
-    }
-
-    .ingredients {
-      font-size: 0.75rem;
-      color: #8a7a68;
-      margin-top: 6px;
-      line-height: 1.4;
-      max-width: 90%;
-    }
-
-    .item-price {
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: #c47b2e;
-      background: #fff1e6;
-      padding: 4px 12px;
-      border-radius: 40px;
-      min-width: 80px;
-      text-align: center;
-    }
-
-    .add-to-cart {
-      margin-top: 8px;
-      background: #1e1e2a;
-      border: none;
-      color: white;
+    .ingredients-light {
       font-size: 0.7rem;
-      padding: 5px 12px;
-      border-radius: 30px;
+      color: #b8a68c;
+      margin-top: 6px;
+      line-height: 1.35;
+      max-width: 95%;
+    }
+
+    .price-oil {
+      background: #23201c;
+      padding: 5px 16px;
+      border-radius: 40px;
+      font-weight: 700;
+      color: #f0c68a;
+      font-size: 1rem;
+    }
+
+    .add-oil-btn {
+      background: #d9a06630;
+      border: 1px solid #d9a066;
+      color: #f0cd9b;
+      padding: 6px 18px;
+      border-radius: 34px;
+      font-weight: 600;
+      font-size: 0.75rem;
       cursor: pointer;
-      font-weight: 500;
       transition: 0.2s;
     }
 
-    .add-to-cart:hover {
-      background: #c47b2e;
+    .add-oil-btn:hover {
+      background: #d9a066;
+      color: #0c0b0a;
       transform: scale(0.96);
     }
 
-    /* payment card */
-    .payment-sidebar {
+    /* payment card premium */
+    .payment-card {
       flex: 1.2;
-      min-width: 320px;
-      background: white;
-      border-radius: 32px;
-      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
-      padding: 24px;
+      min-width: 330px;
+      background: #12100e;
+      border-radius: 38px;
+      padding: 28px 24px;
+      border: 1px solid #3f352c;
+      backdrop-filter: blur(4px);
       align-self: start;
       position: sticky;
-      top: 24px;
+      top: 20px;
+      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.5);
     }
 
-    .cart-header {
-      font-size: 1.6rem;
-      font-weight: 700;
+    .cart-header-oil {
+      font-size: 1.8rem;
+      font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 8px;
-      border-bottom: 3px solid #f0e2d4;
+      gap: 12px;
+      border-bottom: 2px solid #d9a06640;
       padding-bottom: 16px;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
-    .cart-items {
+    .cart-items-list {
       max-height: 340px;
       overflow-y: auto;
       margin-bottom: 24px;
     }
 
-    .cart-item {
+    .cart-item-row {
+      background: #1e1b18;
+      margin-bottom: 12px;
+      padding: 10px 14px;
+      border-radius: 28px;
       display: flex;
       justify-content: space-between;
-      margin-bottom: 14px;
       font-size: 0.85rem;
-      background: #fefaf5;
-      padding: 8px 12px;
-      border-radius: 20px;
     }
 
-    .cart-item span:first-child {
-      font-weight: 500;
-    }
-
-    .cart-total {
-      font-size: 1.4rem;
-      font-weight: 800;
-      border-top: 2px solid #e1cfbe;
-      padding-top: 16px;
-      margin: 16px 0;
+    .cart-total-oil {
       display: flex;
       justify-content: space-between;
+      font-size: 1.5rem;
+      font-weight: 800;
+      border-top: 2px solid #2f2a24;
+      padding-top: 18px;
+      margin: 20px 0;
     }
 
-    /* bank card demo */
-    .bank-demo {
-      background: linear-gradient(145deg, #1b2a3f, #0f1a24);
+    .bank-demo-card {
+      background: linear-gradient(135deg, #1f2c28, #0f1916);
       border-radius: 28px;
       padding: 20px;
       margin: 20px 0;
-      color: white;
-      box-shadow: 0 12px 18px -8px rgba(0,0,0,0.2);
+      border: 1px solid #d9a06670;
     }
 
-    .bank-demo h4 {
-      font-size: 0.85rem;
-      letter-spacing: 1px;
-      opacity: 0.8;
+    .demo-bank-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      opacity: 0.7;
     }
 
-    .demo-card-number {
+    .card-number-demo {
       font-family: monospace;
       font-size: 1.3rem;
       letter-spacing: 2px;
-      margin: 12px 0;
       font-weight: 600;
+      margin: 10px 0;
     }
 
-    .demo-details {
-      display: flex;
-      gap: 20px;
-      font-size: 0.8rem;
-    }
-
-    .pay-btn {
-      background: #2b6e3c;
+    .pay-demo-btn {
       width: 100%;
+      background: #d9a066;
       border: none;
       padding: 14px;
-      font-size: 1rem;
       font-weight: 700;
-      border-radius: 44px;
-      color: white;
+      font-size: 1rem;
+      border-radius: 60px;
+      color: #0f0e0c;
       cursor: pointer;
       transition: 0.2s;
       margin-top: 12px;
-      display: flex;
-      justify-content: center;
-      gap: 8px;
+      font-family: inherit;
     }
 
-    .pay-btn:hover {
-      background: #1f5430;
-      transform: translateY(-2px);
-    }
-
-    .reset-btn {
-      background: #d9cdbc;
-      color: #3a2c1f;
+    .reset-demo-btn {
+      background: #2f2a24;
+      color: #e7c9a6;
       margin-top: 10px;
     }
 
-    .status {
+    .status-message {
+      background: #1e1915;
       margin-top: 16px;
-      font-size: 0.85rem;
-      text-align: center;
-      padding: 8px;
+      padding: 12px;
       border-radius: 60px;
-      background: #f0e9e2;
+      text-align: center;
+      font-size: 0.75rem;
     }
 
-    .free-img {
+    .free-assets {
       display: flex;
-      gap: 12px;
       justify-content: center;
-      margin-top: 16px;
+      gap: 18px;
+      margin-top: 24px;
       font-size: 0.7rem;
-      color: #bc9a6f;
+      color: #a58562;
     }
 
-    @media (max-width: 800px) {
-      body {
+    @media (max-width: 780px) {
+      .container {
         padding: 16px;
       }
-      .payment-sidebar {
+      .payment-card {
         position: relative;
         top: 0;
       }
@@ -322,277 +330,234 @@
 </head>
 <body>
 <div class="container">
-  <div class="hero">
-    <h1>🍽️ WILD KITCHEN</h1>
-    <p>Artisanal flavors • Fresh ingredients • Instant payment demo</p>
+  <div class="hero-oil">
+    <div class="logo-area">
+      <h1>⛽ OILED COFFEE</h1>
+      <p>bold brews • smooth extracts • wild kitchen</p>
+    </div>
+    <div class="tagline-badge">
+      🔥 VAT & service included | demo bank ready
+    </div>
   </div>
 
-  <div class="menu-payment-grid">
-    <!-- MENU AREA -->
-    <div class="menu-section">
-      <div class="category-tabs">
-        <button class="cat-btn active" data-cat="sandwiches">🥪 SANDWICHES</button>
-        <button class="cat-btn" data-cat="chickens">🍗 CHICKENS</button>
-        <button class="cat-btn" data-cat="snacks">🌯 SNACK & WRAPS</button>
-        <button class="cat-btn" data-cat="breakfast">🍳 BREAKFAST</button>
+  <div class="menu-payment-double">
+    <!-- MENU SECTION with all original items enriched -->
+    <div class="menu-panel">
+      <div class="category-slider">
+        <button class="cat-oil active-oil" data-catoil="sandwichesOil">🥪 SANDWICHES</button>
+        <button class="cat-oil" data-catoil="chickensOil">🍗 CHICKEN</button>
+        <button class="cat-oil" data-catoil="snacksOil">🌯 SNACKS & WRAPS</button>
+        <button class="cat-oil" data-catoil="breakfastOil">🍳 BREAKFAST</button>
       </div>
 
-      <!-- Sandwiches -->
-      <div id="sandwiches" class="menu-category active-cat">
-        <div class="menu-item" data-name="Beef Steak Sandwich" data-price="690">
-          <div class="item-info"><div class="item-name"><strong>BEEF STEAK SANDWICH</strong></div><div class="ingredients">Beef, onion, tomato, zucchini, oil, cheese, brown bread</div></div>
-          <div class="item-price">690 EGP</div>
-          <button class="add-to-cart">+ Add</button>
-        </div>
-        <div class="menu-item" data-name="Vegetable Sandwich" data-price="400"><div class="item-info"><div class="item-name"><strong>VEGETABLE SANDWICH</strong></div><div class="ingredients">Tomato, onion, zucchini, cabbage, carrot, oil, garlic powder</div></div><div class="item-price">400 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Egg Sandwich" data-price="390"><div class="item-info"><div class="item-name"><strong>EGG SANDWICH</strong></div><div class="ingredients">Tomato, onion, lettuce, egg, brown bread</div></div><div class="item-price">390 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Tuna Sandwich" data-price="700"><div class="item-info"><div class="item-name"><strong>TUNA SANDWICH</strong></div><div class="ingredients">Tomato, onion, mayonnaise, tuna, oil, sliced bread</div></div><div class="item-price">700 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="House Special Club" data-price="770"><div class="item-info"><div class="item-name"><strong>HOUSE SPECIAL CLUB</strong></div><div class="ingredients">Tomato, onion, mayo, grilled chicken, egg, oil</div></div><div class="item-price">770 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Chicken Cheese Sandwich" data-price="730"><div class="item-info"><div class="item-name"><strong>CHICKEN CHEESE SANDWICH</strong></div><div class="ingredients">Tomato, onion, mayo, grilled chicken, cheese, oil</div></div><div class="item-price">730 EGP</div><button class="add-to-cart">+ Add</button></div>
+      <!-- Sandwiches block -->
+      <div id="sandwichesOil" class="menu-category-oil active-cat-oil">
+        <div class="menu-item-oil" data-item-name="BEEF STEAK SANDWICH" data-item-price="690"><div class="item-desc"><h4>BEEF STEAK SANDWICH</h4><div class="ingredients-light">Beef, onion, tomato, zucchini, oil, cheese, brown bread + fries/salad</div></div><div class="price-oil">690 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="VEGETABLE SANDWICH" data-item-price="400"><div class="item-desc"><h4>VEGETABLE SANDWICH</h4><div class="ingredients-light">Tomato, onion, zucchini, cabbage, carrot, oil, garlic powder</div></div><div class="price-oil">400 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="EGG SANDWICH" data-item-price="390"><div class="item-desc"><h4>EGG SANDWICH</h4><div class="ingredients-light">Tomato, onion, lettuce, egg, brown bread</div></div><div class="price-oil">390 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="TUNA SANDWICH" data-item-price="700"><div class="item-desc"><h4>TUNA SANDWICH</h4><div class="ingredients-light">Tomato, onion, mayonnaise, tuna, oil, sliced bread</div></div><div class="price-oil">700 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="HOUSE SPECIAL CLUB" data-item-price="770"><div class="item-desc"><h4>HOUSE SPECIAL CLUB</h4><div class="ingredients-light">Tomato, onion, mayo, grilled chicken, egg, oil, slice bread</div></div><div class="price-oil">770 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="CHICKEN CHEESE SANDWICH" data-item-price="730"><div class="item-desc"><h4>CHICKEN CHEESE SANDWICH</h4><div class="ingredients-light">Tomato, onion, mayo, grilled chicken, cheese, oil, brown bread</div></div><div class="price-oil">730 EGP</div><button class="add-oil-btn">+ order</button></div>
       </div>
 
       <!-- Chickens -->
-      <div id="chickens" class="menu-category">
-        <div class="menu-item" data-name="Chicken Breast" data-price="990"><div class="item-info"><div class="item-name"><strong>CHICKEN BREAST</strong></div><div class="ingredients">Grilled chicken breast, onion, tomato, zucchini, garlic powder, frisée</div></div><div class="item-price">990 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Chicken Leg" data-price="950"><div class="item-info"><div class="item-name"><strong>CHICKEN LEG</strong></div><div class="ingredients">Grilled leg, BBQ sauce, mustard, baro, garlic, fries</div></div><div class="item-price">950 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Chicken Wing" data-price="930"><div class="item-info"><div class="item-name"><strong>CHICKEN WING</strong></div><div class="ingredients">Grilled wings, BBQ sauce, mustard, baro, fries</div></div><div class="item-price">930 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Chicken Nugget" data-price="950"><div class="item-info"><div class="item-name"><strong>CHICKEN NUGGET</strong></div><div class="ingredients">Curry powder, BBQ sauce, mustard, baro, fries</div></div><div class="item-price">950 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Chicken Cutlet" data-price="930"><div class="item-info"><div class="item-name"><strong>CHICKEN CUTLET</strong></div><div class="ingredients">Curry powder, egg, BBQ, mustard, fries</div></div><div class="item-price">930 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Chicken Salad" data-price="850"><div class="item-info"><div class="item-name"><strong>CHICKEN SALAD</strong></div><div class="ingredients">Lettuce, tomato, onion, cucumber, dressing, mustard</div></div><div class="item-price">850 EGP</div><button class="add-to-cart">+ Add</button></div>
+      <div id="chickensOil" class="menu-category-oil">
+        <div class="menu-item-oil" data-item-name="CHICKEN BREAST" data-item-price="990"><div class="item-desc"><h4>CHICKEN BREAST</h4><div class="ingredients-light">Grilled chicken breast, onion, tomato, zucchini, garlic powder, frisée</div></div><div class="price-oil">990 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="CHICKEN LEG" data-item-price="950"><div class="item-desc"><h4>CHICKEN LEG</h4><div class="ingredients-light">Grilled leg, BBQ sauce, mustard, baro, garlic powder + fries</div></div><div class="price-oil">950 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="CHICKEN WING" data-item-price="930"><div class="item-desc"><h4>CHICKEN WING</h4><div class="ingredients-light">Grilled wings, BBQ, mustard, baro, garlic powder + fries</div></div><div class="price-oil">930 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="CHICKEN NUGGET" data-item-price="950"><div class="item-desc"><h4>CHICKEN NUGGET</h4><div class="ingredients-light">Curry powder, BBQ sauce, mustard, baro, fries</div></div><div class="price-oil">950 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="CHICKEN CUTLET" data-item-price="930"><div class="item-desc"><h4>CHICKEN CUTLET</h4><div class="ingredients-light">Curry powder, egg, BBQ sauce, mustard, fries</div></div><div class="price-oil">930 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="CHICKEN SALAD" data-item-price="850"><div class="item-desc"><h4>CHICKEN SALAD</h4><div class="ingredients-light">Grilled chicken, lettuce, tomato, cucumber, dressing, mustard</div></div><div class="price-oil">850 EGP</div><button class="add-oil-btn">+ order</button></div>
       </div>
 
-      <!-- SNACKS & WRAPS -->
-      <div id="snacks" class="menu-category">
-        <div class="menu-item" data-name="Veggie Mini Burger" data-price="390"><div class="item-info"><div class="item-name"><strong>VEGETABLE MINI BURGER</strong></div><div class="ingredients">Tomato, onion, boiled beans, lettuce, oil</div></div><div class="item-price">390 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Beef Mini Burger" data-price="430"><div class="item-info"><div class="item-name"><strong>BEEF MINI BURGER</strong></div><div class="ingredients">Grilled minced beef, tomato, onion, lettuce</div></div><div class="item-price">430 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Chicken Wrap" data-price="710"><div class="item-info"><div class="item-name"><strong>CHICKEN WRAP</strong></div><div class="ingredients">Teff flour, chicken, caesar dressing, lettuce</div></div><div class="item-price">710 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Vegetable Wrap" data-price="400"><div class="item-info"><div class="item-name"><strong>VEGETABLE WRAP</strong></div><div class="ingredients">Tomato, onion, cabbage, carrot, cucumber, zucchini</div></div><div class="item-price">400 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Beef Burrito" data-price="790"><div class="item-info"><div class="item-name"><strong>BEEF BURRITO</strong></div><div class="ingredients">Tomato, onion, carrot, beef, flour</div></div><div class="item-price">790 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Chicken Burrito" data-price="790"><div class="item-info"><div class="item-name"><strong>CHICKEN BURRITO</strong></div><div class="ingredients">Tomato, onion, carrot, chicken, flour</div></div><div class="item-price">790 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Fried Egg with Avocado" data-price="480"><div class="item-info"><div class="item-name"><strong>FRIED EGG & AVOCADO</strong></div><div class="ingredients">Tomato, onion, lettuce, fried egg, avocado, olive oil</div></div><div class="item-price">480 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Fried Chicken & Spinach" data-price="950"><div class="item-info"><div class="item-name"><strong>FRIED CHICKEN + SPINACH</strong></div><div class="ingredients">Fried chicken, spinach, boiled egg, onion</div></div><div class="item-price">950 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Polpette with Avocado" data-price="750"><div class="item-info"><div class="item-name"><strong>POLPETTE WITH AVOCADO</strong></div><div class="ingredients">Cheese, egg, bread, fresh avocado</div></div><div class="item-price">750 EGP</div><button class="add-to-cart">+ Add</button></div>
+      <!-- SNACKS & WRAPS (full list) -->
+      <div id="snacksOil" class="menu-category-oil">
+        <div class="menu-item-oil" data-item-name="VEGGIE MINI BURGER" data-item-price="390"><div class="item-desc"><h4>VEGETABLE MINI BURGER</h4><div class="ingredients-light">Tomato, onion, boiled beans, lettuce, oil, bread + salad</div></div><div class="price-oil">390 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="BEEF MINI BURGER" data-item-price="430"><div class="item-desc"><h4>BEEF MINI BURGER</h4><div class="ingredients-light">Grilled minced beef, tomato, onion, lettuce, oil</div></div><div class="price-oil">430 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="CHICKEN WRAP" data-item-price="710"><div class="item-desc"><h4>CHICKEN WRAP</h4><div class="ingredients-light">Teff flour, chicken, caesar dressing, lettuce, oil</div></div><div class="price-oil">710 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="VEGETABLE WRAP" data-item-price="400"><div class="item-desc"><h4>VEGETABLE WRAP</h4><div class="ingredients-light">Tomato, onion, cabbage, carrot, cucumber, zucchini, oil</div></div><div class="price-oil">400 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="BEEF BURRITO" data-item-price="790"><div class="item-desc"><h4>BEEF BURRITO</h4><div class="ingredients-light">Tomato, onion, carrot, beef, oil, flour + fries/salad</div></div><div class="price-oil">790 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="CHICKEN BURRITO" data-item-price="790"><div class="item-desc"><h4>CHICKEN BURRITO</h4><div class="ingredients-light">Tomato, onion, carrot, chicken, oil, flour</div></div><div class="price-oil">790 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="FRIED EGG & AVOCADO" data-item-price="480"><div class="item-desc"><h4>FRIED EGG WITH AVOCADO</h4><div class="ingredients-light">Tomato, onion, lettuce, fried egg, olive oil, avocado, brown bread</div></div><div class="price-oil">480 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="FRIED CHICKEN & SPINACH" data-item-price="950"><div class="item-desc"><h4>FRIED CHICKEN + SPINACH</h4><div class="ingredients-light">Fried chicken, onion, spinach, boiled egg, oil</div></div><div class="price-oil">950 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="POLPETTE WITH AVOCADO" data-item-price="750"><div class="item-desc"><h4>POLPETTE & AVOCADO</h4><div class="ingredients-light">Cheese, egg, bread, fresh avocado</div></div><div class="price-oil">750 EGP</div><button class="add-oil-btn">+ order</button></div>
       </div>
 
-      <!-- BREAKFAST MENU -->
-      <div id="breakfast" class="menu-category">
-        <div class="menu-item" data-name="Wild Combo" data-price="690"><div class="item-info"><div class="item-name"><strong>WILD COMBO</strong></div><div class="ingredients">Waffle, chicken, beef sausage, fried egg, toasted bread</div></div><div class="item-price">690 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Special Foul" data-price="480"><div class="item-info"><div class="item-name"><strong>SPECIAL FOUL</strong></div><div class="ingredients">Tomato, onion, beans, egg, brown bread</div></div><div class="item-price">480 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Teff Checkeressa" data-price="420"><div class="item-info"><div class="item-name"><strong>TEFF CHECKERESSA</strong></div><div class="ingredients">Teff flour, olive oil, honey</div></div><div class="item-price">420 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Waffle & Chicken" data-price="480"><div class="item-info"><div class="item-name"><strong>WAFFLE & CHICKEN</strong></div><div class="ingredients">Fried chicken, flour, egg, milk</div></div><div class="item-price">480 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Wild Toast" data-price="430"><div class="item-info"><div class="item-name"><strong>WILD TOAST</strong></div><div class="ingredients">Egg, avocado, brown bread</div></div><div class="item-price">430 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="French Toast" data-price="420"><div class="item-info"><div class="item-name"><strong>FRENCH TOAST</strong></div><div class="ingredients">Egg, toasted bread, milk, lettuce</div></div><div class="item-price">420 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Croissant Sandwich" data-price="420"><div class="item-info"><div class="item-name"><strong>CROISSANT SANDWICH</strong></div><div class="ingredients">Croissant, egg, lettuce, tomato</div></div><div class="item-price">420 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Croissant Cheese Beef" data-price="580"><div class="item-info"><div class="item-name"><strong>CROISSANT WITH CHEESE & BEEF HAM</strong></div><div class="ingredients">Beef, sliced cheese, egg, lettuce</div></div><div class="item-price">580 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Wild Omelette" data-price="470"><div class="item-info"><div class="item-name"><strong>WILD SPECIAL OMELETTE</strong></div><div class="ingredients">Egg, spinach, sweet corn, cheese, chilli</div></div><div class="item-price">470 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Egg Benedict Smoked Beef" data-price="520"><div class="item-info"><div class="item-name"><strong>SPECIAL EGG BENEDICT</strong></div><div class="ingredients">Smoked beef, lettuce, ayib, slice bread</div></div><div class="item-price">520 EGP</div><button class="add-to-cart">+ Add</button></div>
-        <div class="menu-item" data-name="Chicken Quesadilla" data-price="790"><div class="item-info"><div class="item-name"><strong>CHICKEN QUESADILLA</strong></div><div class="ingredients">Flour, egg, spinach, grilled chicken</div></div><div class="item-price">790 EGP</div><button class="add-to-cart">+ Add</button></div>
+      <!-- BREAKFAST (complete from original) -->
+      <div id="breakfastOil" class="menu-category-oil">
+        <div class="menu-item-oil" data-item-name="WILD COMBO" data-item-price="690"><div class="item-desc"><h4>WILD COMBO</h4><div class="ingredients-light">Waffle, chicken, beef sausage, butter, fried egg, toast</div></div><div class="price-oil">690 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="SPECIAL FOUL" data-item-price="480"><div class="item-desc"><h4>SPECIAL FOUL</h4><div class="ingredients-light">Tomato, onion, beans, egg, brown bread, oil</div></div><div class="price-oil">480 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="TEFF CHECKERESSA" data-item-price="420"><div class="item-desc"><h4>TEFF CHECKERESSA</h4><div class="ingredients-light">Teff flour, olive oil, honey, breeze</div></div><div class="price-oil">420 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="WAFFLE & CHICKEN" data-item-price="480"><div class="item-desc"><h4>WAFFLE & CHICKEN</h4><div class="ingredients-light">Fried chicken, flour, baking powder, egg, milk</div></div><div class="price-oil">480 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="WILD TOAST" data-item-price="430"><div class="item-desc"><h4>WILD TOAST</h4><div class="ingredients-light">Egg, avocado, brown bread, oil</div></div><div class="price-oil">430 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="AVOCADO TOAST" data-item-price="370"><div class="item-desc"><h4>AVOCADO TOAST</h4><div class="ingredients-light">Toasted bread, avocado, olive oil, salt</div></div><div class="price-oil">370 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="FRENCH TOAST" data-item-price="420"><div class="item-desc"><h4>FRENCH TOAST</h4><div class="ingredients-light">Egg, toasted bread, milk, lettuce</div></div><div class="price-oil">420 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="CROISSANT SANDWICH" data-item-price="420"><div class="item-desc"><h4>CROISSANT SANDWICH</h4><div class="ingredients-light">Croissant, egg, lettuce, onion, tomato, oil</div></div><div class="price-oil">420 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="CROISSANT CHEESE BEEF" data-item-price="580"><div class="item-desc"><h4>CROISSANT WITH CHEESE & BEEF HAM</h4><div class="ingredients-light">Croissant, egg, beef, sliced cheese, lettuce</div></div><div class="price-oil">580 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="WILD OMELETTE" data-item-price="470"><div class="item-desc"><h4>WILD SPECIAL OMELETTE</h4><div class="ingredients-light">Egg, tomato, onion, spinach, sweet corn, cheese</div></div><div class="price-oil">470 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="EGG BENEDICT SMOKED BEEF" data-item-price="520"><div class="item-desc"><h4>SPECIAL EGG BENEDICT</h4><div class="ingredients-light">Smoked beef, lettuce, ayib, slice bread, egg</div></div><div class="price-oil">520 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="SPINACH QUESADILLA" data-item-price="620"><div class="item-desc"><h4>SPINACH QUESADILLA</h4><div class="ingredients-light">Flour, egg, spinach, lettuce, onion, tomato</div></div><div class="price-oil">620 EGP</div><button class="add-oil-btn">+ order</button></div>
+        <div class="menu-item-oil" data-item-name="CHICKEN QUESADILLA" data-item-price="790"><div class="item-desc"><h4>CHICKEN QUESADILLA</h4><div class="ingredients-light">Flour, egg, spinach, grilled chicken, oil</div></div><div class="price-oil">790 EGP</div><button class="add-oil-btn">+ order</button></div>
       </div>
     </div>
 
-    <!-- PAYMENT SIDEBAR (BANK + DEMO) -->
-    <div class="payment-sidebar">
-      <div class="cart-header">
-        <span>🛒 Your Order</span>
+    <!-- PAYMENT SIDEBAR - BANK + DEMO ACCOUNT -->
+    <div class="payment-card">
+      <div class="cart-header-oil">
+        🧾 OILED ORDER
       </div>
-      <div id="cartItemsList" class="cart-items">
-        <div style="color: #a58e76; text-align: center; padding: 20px;">Your cart is empty — add delicious items ✨</div>
+      <div id="cartOilList" class="cart-items-list">
+        <div style="text-align:center; color:#b28b60;">No drops yet — add fuel ⛽</div>
       </div>
-      <div class="cart-total">
-        <span>Total (EGP)</span>
-        <span id="cartTotalPrice">0</span>
+      <div class="cart-total-oil">
+        <span>TOTAL</span>
+        <span id="cartOilTotal">0 EGP</span>
       </div>
 
-      <!-- BANK PAYMENT DEMO CARD + FREE IMAGES STYLE -->
-      <div class="bank-demo">
-        <h4>🏦 DEMO BANK ACCOUNT (TEST PAYMENT)</h4>
-        <div class="demo-card-number">💳 4242 4242 4242 4242</div>
-        <div class="demo-details">
+      <!-- DEMO BANK ACCOUNT with free images & demo credentials -->
+      <div class="bank-demo-card">
+        <div class="demo-bank-label">💳 DEMO BANK • TEST PAYMENT</div>
+        <div class="card-number-demo">4242 4242 4242 4242</div>
+        <div style="display: flex; gap: 20px; font-size: 0.75rem;">
           <span>📅 12/28</span>
           <span>🔒 CVV 123</span>
-          <span>👤 WILD DEMO</span>
+          <span>🏦 OILED COFFEE DEMO</span>
         </div>
-        <div class="free-img" style="margin-top: 10px; justify-content: flex-start; gap: 8px;">
-          <span>✅ Visa test</span> 
+        <div class="free-assets" style="justify-content: flex-start; margin-top: 10px;">
+          <span>✅ Visa test sandbox</span>
           <span>•</span>
-          <span>🔐 Any future date</span>
+          <span>🖼️ free image assets</span>
         </div>
       </div>
 
-      <button id="proceedPayBtn" class="pay-btn">💸 PAY NOW (DEMO)</button>
-      <button id="resetCartBtn" class="pay-btn reset-btn">🗑️ Clear Cart</button>
-      <div id="paymentStatus" class="status">✨ Ready to checkout — use demo card above</div>
-      <div class="free-img" style="margin-top: 16px;">
-        <span>📸 free images • all dishes illustrated</span>
+      <button id="payOilBtn" class="pay-demo-btn">⚡ PAY WITH DEMO BANK</button>
+      <button id="resetOilCart" class="pay-demo-btn reset-demo-btn">🗑️ RESET ORDER</button>
+      <div id="paymentOilStatus" class="status-message">☕ ready • demo card active</div>
+      <div class="free-assets">
+        <span>📸 free stock imagery</span>
+        <span>🔥 wild kitchen</span>
+        <span>⛽ oiled coffee roast</span>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-  // ----- CART MANAGEMENT -----
-  let cart = [];  // each element { name, price, quantity? we treat each click adds 1 item }
+  // OILED COFFEE CART LOGIC
+  let oilCart = [];
 
-  function updateCartUI() {
-    const cartContainer = document.getElementById('cartItemsList');
-    const totalSpan = document.getElementById('cartTotalPrice');
-    
-    if (!cart.length) {
-      cartContainer.innerHTML = `<div style="color: #a58e76; text-align: center; padding: 20px;">Your cart is empty — add delicious items ✨</div>`;
-      totalSpan.innerText = '0';
+  function updateOilCartUI() {
+    const container = document.getElementById('cartOilList');
+    const totalSpan = document.getElementById('cartOilTotal');
+    if (oilCart.length === 0) {
+      container.innerHTML = '<div style="text-align:center; color:#b28b60;">No drops yet — add fuel ⛽</div>';
+      totalSpan.innerText = '0 EGP';
       return;
     }
-    
-    // group by name to show quantities
-    const grouped = {};
-    cart.forEach(item => {
-      const key = item.name;
-      if (grouped[key]) {
-        grouped[key].qty += 1;
+    const grouped = new Map();
+    for (let item of oilCart) {
+      if (grouped.has(item.name)) {
+        grouped.get(item.name).qty += 1;
       } else {
-        grouped[key] = { ...item, qty: 1 };
+        grouped.set(item.name, { name: item.name, price: item.price, qty: 1 });
       }
-    });
-    
-    let html = '';
-    let total = 0;
-    for (let key in grouped) {
-      const g = grouped[key];
-      const itemTotal = g.price * g.qty;
-      total += itemTotal;
-      html += `
-        <div class="cart-item">
-          <span><strong>${g.qty}x</strong> ${g.name}</span>
-          <span>${itemTotal} EGP</span>
-        </div>
-      `;
     }
-    cartContainer.innerHTML = html;
-    totalSpan.innerText = total;
+    let total = 0;
+    let html = '';
+    for (let [_, group] of grouped.entries()) {
+      const subtotal = group.price * group.qty;
+      total += subtotal;
+      html += `<div class="cart-item-row"><span><strong>${group.qty}x</strong> ${group.name}</span><span>${subtotal} EGP</span></div>`;
+    }
+    container.innerHTML = html;
+    totalSpan.innerText = `${total} EGP`;
   }
-  
-  function addToCart(name, price) {
-    cart.push({ name, price });
-    updateCartUI();
-    // flash status update
-    const statusDiv = document.getElementById('paymentStatus');
-    statusDiv.innerHTML = `✅ Added "${name}" — total: ${cart.reduce((sum, i) => sum + i.price, 0)} EGP`;
+
+  function addToOilCart(name, price) {
+    oilCart.push({ name, price });
+    updateOilCartUI();
+    const statusDiv = document.getElementById('paymentOilStatus');
+    statusDiv.innerHTML = `✅ added "${name}" — total ${oilCart.reduce((s,i)=>s+i.price,0)} EGP`;
     setTimeout(() => {
-      if (document.getElementById('paymentStatus').innerHTML.includes('Added')) {
-        document.getElementById('paymentStatus').innerHTML = `✨ Ready to checkout — use demo card above`;
-      }
+      if (statusDiv.innerHTML.includes('added')) statusDiv.innerHTML = '☕ ready • demo card active';
     }, 1800);
   }
-  
-  function resetCart() {
-    cart = [];
-    updateCartUI();
-    document.getElementById('paymentStatus').innerHTML = '🧹 Cart cleared. Add new items!';
+
+  function resetOilCartFunc() {
+    oilCart = [];
+    updateOilCartUI();
+    document.getElementById('paymentOilStatus').innerHTML = '🧽 Cart cleared. Select new items!';
     setTimeout(() => {
-      if(document.getElementById('paymentStatus').innerHTML.includes('cleared'))
-        document.getElementById('paymentStatus').innerHTML = '✨ Ready to checkout — use demo card above';
+      if(document.getElementById('paymentOilStatus').innerHTML.includes('cleared'))
+        document.getElementById('paymentOilStatus').innerHTML = '☕ ready • demo card active';
     }, 2000);
   }
-  
-  // DEMO PAYMENT FUNCTION - simulates bank payment
-  function processPayment() {
-    const total = cart.reduce((sum, i) => sum + i.price, 0);
+
+  function processOilPayment() {
+    const total = oilCart.reduce((sum,i)=>sum+i.price,0);
     if (total === 0) {
-      document.getElementById('paymentStatus').innerHTML = '⚠️ Cart is empty. Please add items before payment.';
+      document.getElementById('paymentOilStatus').innerHTML = '⚠️ Cart empty — add some fuel first.';
       return;
     }
-    
-    // simulate bank processing with demo account
-    const statusDiv = document.getElementById('paymentStatus');
-    statusDiv.innerHTML = '🔄 Processing payment via Demo Bank...';
+    const statusDiv = document.getElementById('paymentOilStatus');
+    statusDiv.innerHTML = '🔄 processing bank transaction (demo) ...';
     setTimeout(() => {
-      // success demo (always success for demo purposes)
-      statusDiv.innerHTML = `✅ PAYMENT SUCCESSFUL! Total ${total} EGP charged to demo card (4242-4242). Thank you! 🎉`;
-      // optional: clear cart after successful payment? but we keep or ask user? according to UX we reset cart after payment?
-      // professional flow: after successful payment, cart resets for new order.
-      cart = [];
-      updateCartUI();
-      // also after 3 sec show ready status
+      statusDiv.innerHTML = `✅ PAYMENT APPROVED! ${total} EGP charged to demo card 4242. Thank you, Oiled Coffee ♨️`;
+      oilCart = [];
+      updateOilCartUI();
       setTimeout(() => {
-        if(document.getElementById('paymentStatus').innerHTML.includes('SUCCESSFUL')) {
-          document.getElementById('paymentStatus').innerHTML = '✨ Order placed! Your meal will be prepared.';
-        }
-      }, 4000);
+        if(statusDiv.innerHTML.includes('APPROVED')) statusDiv.innerHTML = '✨ order confirmed — enjoy your feast!';
+      }, 3500);
     }, 1000);
   }
-  
-  // ----- ADD EVENT LISTENERS FOR ALL ADD BUTTONS (dynamic & static)
-  function attachAddEvents() {
-    const allAddButtons = document.querySelectorAll('.add-to-cart');
-    allAddButtons.forEach(btn => {
-      // avoid duplicate listeners
-      btn.removeEventListener('click', handleAddClick);
-      btn.addEventListener('click', handleAddClick);
+
+  // attach listeners for add buttons
+  function attachOilAddEvents() {
+    document.querySelectorAll('.add-oil-btn').forEach(btn => {
+      btn.removeEventListener('click', oilAddHandler);
+      btn.addEventListener('click', oilAddHandler);
     });
   }
-  
-  function handleAddClick(e) {
-    const menuItem = e.target.closest('.menu-item');
-    if (!menuItem) return;
-    const nameElem = menuItem.querySelector('.item-name strong');
-    let itemName = nameElem ? nameElem.innerText : menuItem.querySelector('.item-name')?.innerText.split('\n')[0];
-    if (!itemName) {
-      // fallback
-      const firstStrong = menuItem.querySelector('strong');
-      itemName = firstStrong ? firstStrong.innerText : "Wild Dish";
-    }
-    const priceText = menuItem.querySelector('.item-price')?.innerText;
-    const price = parseInt(priceText);
-    if (!isNaN(price)) {
-      addToCart(itemName, price);
-    } else {
-      addToCart(itemName, 0);
-    }
+
+  function oilAddHandler(e) {
+    const menuDiv = e.target.closest('.menu-item-oil');
+    if (!menuDiv) return;
+    const nameElem = menuDiv.querySelector('h4');
+    const name = nameElem ? nameElem.innerText.trim() : "Wild Dish";
+    const priceElem = menuDiv.querySelector('.price-oil');
+    let price = 0;
+    if (priceElem) price = parseInt(priceElem.innerText);
+    if (!isNaN(price)) addToOilCart(name, price);
+    else addToOilCart(name, 0);
   }
-  
-  // ----- CATEGORY TABS LOGIC -----
-  function initTabs() {
-    const btns = document.querySelectorAll('.cat-btn');
-    const categories = {
-      sandwiches: document.getElementById('sandwiches'),
-      chickens: document.getElementById('chickens'),
-      snacks: document.getElementById('snacks'),
-      breakfast: document.getElementById('breakfast')
+
+  // TABS (oiled version)
+  function initOilTabs() {
+    const btns = document.querySelectorAll('.cat-oil');
+    const cats = {
+      sandwichesOil: document.getElementById('sandwichesOil'),
+      chickensOil: document.getElementById('chickensOil'),
+      snacksOil: document.getElementById('snacksOil'),
+      breakfastOil: document.getElementById('breakfastOil')
     };
-    
     btns.forEach(btn => {
       btn.addEventListener('click', () => {
-        const cat = btn.getAttribute('data-cat');
-        // remove active from all btns & categories
-        btns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        Object.values(categories).forEach(catDiv => {
-          if (catDiv) catDiv.classList.remove('active-cat');
-        });
-        if (cat === 'sandwiches') categories.sandwiches.classList.add('active-cat');
-        if (cat === 'chickens') categories.chickens.classList.add('active-cat');
-        if (cat === 'snacks') categories.snacks.classList.add('active-cat');
-        if (cat === 'breakfast') categories.breakfast.classList.add('active-cat');
+        const target = btn.getAttribute('data-catoil');
+        btns.forEach(b => b.classList.remove('active-oil'));
+        btn.classList.add('active-oil');
+        Object.values(cats).forEach(c => c.classList.remove('active-cat-oil'));
+        if (target && cats[target]) cats[target].classList.add('active-cat-oil');
       });
     });
   }
-  
-  // initialize everything
-  function init() {
-    initTabs();
-    attachAddEvents();
-    // dynamic because menu items are static, but safe
-    const observer = new MutationObserver(() => attachAddEvents());
-    observer.observe(document.querySelector('.menu-section'), { childList: true, subtree: true });
-    attachAddEvents();
-    
-    const payBtn = document.getElementById('proceedPayBtn');
-    const resetBtn = document.getElementById('resetCartBtn');
-    if (payBtn) payBtn.addEventListener('click', processPayment);
-    if (resetBtn) resetBtn.addEventListener('click', resetCart);
-  }
-  
-  init();
+
+  document.getElementById('payOilBtn')?.addEventListener('click', processOilPayment);
+  document.getElementById('resetOilCart')?.addEventListener('click', resetOilCartFunc);
+  initOilTabs();
+  attachOilAddEvents();
+  // dynamic observer for future items
+  const observer = new MutationObserver(() => attachOilAddEvents());
+  observer.observe(document.querySelector('.menu-panel'), { childList: true, subtree: true });
 </script>
 </body>
 </html>

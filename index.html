@@ -86,6 +86,7 @@
       margin-bottom: 40px;
       border-bottom: 1px solid #2f2922;
       padding-bottom: 16px;
+      position: relative;
     }
 
     .nav-btn {
@@ -109,6 +110,41 @@
 
     .nav-btn:hover:not(.active) {
       background: #2f281f;
+    }
+
+    /* Payment Button in Navigation */
+    .payment-nav-btn {
+      background: #004d40;
+      border: none;
+      color: white;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 8px 24px;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: 0.2s;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .payment-nav-btn:hover {
+      background: #00695c;
+      transform: scale(1.02);
+    }
+
+    @media (max-width: 860px) {
+      .payment-nav-btn {
+        margin-left: 0;
+        width: 100%;
+        justify-content: center;
+        margin-top: 8px;
+      }
+      .nav-tabs {
+        justify-content: center;
+      }
     }
 
     /* Menu Categories */
@@ -483,12 +519,13 @@
     <div class="tagline" style="color:#bda68a; font-size:0.9rem; margin-top:8px;">Bold brews • Smooth extracts • Wild flavors</div>
   </div>
 
-  <!-- Navigation -->
+  <!-- Navigation with Payment Button -->
   <div class="nav-tabs">
     <button class="nav-btn active" data-cat="breakfastNav">🍳 Breakfast</button>
     <button class="nav-btn" data-cat="lunchNav">🍗 Lunch & Sandwiches</button>
     <button class="nav-btn" data-cat="snacksNav">🌯 Snacks & Wraps</button>
     <button class="nav-btn" data-cat="beverageNav">🥤 Beverages</button>
+    <button id="navPaymentBtn" class="payment-nav-btn">💳 PROCEED TO PAYMENT</button>
   </div>
 
   <!-- BREAKFAST -->
@@ -515,19 +552,19 @@
     <div class="menu-grid" id="beverageGrid"></div>
   </div>
 
-  <!-- SERVICES -->
+  <!-- SERVICES SECTION (Front Yard instead of Backyard) -->
   <div class="services-section">
     <div class="services-title">✨ Our Services</div>
     <div class="services-grid">
       <div class="service-card"><div class="service-icon">🚚</div><h4>Fast Delivery</h4><p>Hot & fresh dishes delivered to your doorstep. Free delivery within 5km.</p><p style="font-size:0.7rem; margin-top:6px;">⏱️ 30-45 min • Free tracking</p></div>
       <div class="service-card"><div class="service-icon">🏪</div><h4>Easy Pickup</h4><p>Order online and pick up at our cafe. Skip the line, just grab your meal.</p></div>
       <div class="service-card"><div class="service-icon">🍽️</div><h4>Table Reservation</h4><p>Reserve your cozy table for breakfast, lunch, or evening coffee.</p></div>
-      <div class="service-card"><div class="service-icon">🌿</div><h4>Backyard Space</h4><p>Enjoy our peaceful garden with traditional seating. Perfect for coffee ceremonies.</p></div>
+      <div class="service-card"><div class="service-icon">🌿</div><h4>Front Yard Space</h4><p>Enjoy our sunny front yard garden with traditional seating. Perfect for coffee ceremonies.</p></div>
     </div>
   </div>
 
   <!-- PAYMENT + CART + RESERVATION -->
-  <div class="payment-reservation-row">
+  <div class="payment-reservation-row" id="paymentSection">
     <div class="cart-card">
       <div class="card-header">🛒 Your Order</div>
       <div id="cartList" class="cart-list">✨ No items yet — add bold flavors</div>
@@ -537,15 +574,27 @@
 
     <div class="payment-card">
       <div class="card-header">💳 Payment Methods</div>
+      
+      <!-- Sample Bank Account Details (clearly visible) -->
       <div class="bank-details">
-        <h4 style="font-size:0.9rem;">🏦 Bank Transfer (Demo)</h4>
-        <div class="bank-number">EG38 0010 1234 5678 9012 3456 7890</div>
-        <div class="vat-row"><span>OILED COFFEE</span><span>SWIFT: OILCEC30</span></div>
+        <h4 style="font-size:0.9rem;">🏦 Sample Bank Account</h4>
+        <div class="bank-number">CBE: 1000 1234 5678 901</div>
+        <div class="bank-number">Account Name: OILED COFFEE TRADING</div>
+        <div class="vat-row"><span>SWIFT: CBETETAA</span><span>Branch: Bole</span></div>
         <div class="vat-row"><span>VAT 14% included</span><span>Tax ID: 512-987-654</span></div>
       </div>
+      
+      <!-- Sample Telebirr Number -->
+      <div class="bank-details" style="background: #1a2a1f30;">
+        <h4 style="font-size:0.9rem;">📱 Sample Telebirr Number</h4>
+        <div class="bank-number">09XX 123 4567</div>
+        <div class="bank-number">Account Name: OILED COFFEE</div>
+        <div class="vat-row">Scan or dial *127# to pay</div>
+      </div>
+
       <button id="bankPayBtn" class="pay-btn">💳 Pay with Bank Transfer</button>
-      <button id="telebirrPayBtn" class="telebirr-btn">📱 Telebirr | 09XX-1234567 (Demo)</button>
-      <div id="paymentStatus" class="status-msg">✅ ready • bank / telebirr demo</div>
+      <button id="telebirrPayBtn" class="telebirr-btn">📱 Pay with Telebirr (09XX 123 4567)</button>
+      <div id="paymentStatus" class="status-msg">✅ ready • use sample bank or telebirr</div>
     </div>
 
     <div class="reservation-card">
@@ -576,7 +625,8 @@
         <span>TOTAL (VAT incl.)</span><span id="invoiceTotal">0 EGP</span>
       </div>
       <div class="bank-details" style="margin-top:16px;">
-        <div class="bank-number">EG38 0010 1234 5678 9012 3456 7890</div>
+        <div class="bank-number">CBE: 1000 1234 5678 901</div>
+        <div class="bank-number">Telebirr: 09XX 123 4567</div>
         <div class="vat-row">Payment reference: OILED + timestamp</div>
       </div>
       <button class="close-invoice" id="closeInvoiceBtn">Close</button>
@@ -721,7 +771,7 @@
     totalSpan.innerText = `${total} EGP`;
   }
 
-  function addToCart(name, price) { cart.push({ name, price }); updateCartUI(); document.getElementById('paymentStatus').innerHTML = `➕ added "${name}" — total ${cart.reduce((s,i)=>s+i.price,0)} EGP`; setTimeout(() => { if(document.getElementById('paymentStatus').innerHTML.includes('added')) document.getElementById('paymentStatus').innerHTML = '✅ ready • bank / telebirr demo'; }, 1800); }
+  function addToCart(name, price) { cart.push({ name, price }); updateCartUI(); document.getElementById('paymentStatus').innerHTML = `➕ added "${name}" — total ${cart.reduce((s,i)=>s+i.price,0)} EGP`; setTimeout(() => { if(document.getElementById('paymentStatus').innerHTML.includes('added')) document.getElementById('paymentStatus').innerHTML = '✅ ready • use sample bank or telebirr'; }, 1800); }
 
   function resetCart() { cart = []; updateCartUI(); document.getElementById('paymentStatus').innerHTML = '🧹 Cart cleared.'; }
 
@@ -741,8 +791,8 @@
     return true;
   }
 
-  function bankPayment() { if (showInvoice()) { cart = []; updateCartUI(); document.getElementById('paymentStatus').innerHTML = '✅ Invoice generated. Complete bank transfer.'; } }
-  function telebirrPayment() { if (showInvoice()) { cart = []; updateCartUI(); document.getElementById('paymentStatus').innerHTML = '✅ Telebirr payment initiated. Invoice sent.'; } }
+  function bankPayment() { if (showInvoice()) { cart = []; updateCartUI(); document.getElementById('paymentStatus').innerHTML = '✅ Invoice generated. Transfer to CBE: 1000 1234 5678 901'; } }
+  function telebirrPayment() { if (showInvoice()) { cart = []; updateCartUI(); document.getElementById('paymentStatus').innerHTML = '✅ Telebirr payment initiated to 09XX 123 4567. Invoice sent.'; } }
 
   // Event listeners
   document.getElementById('bankPayBtn')?.addEventListener('click', bankPayment);
@@ -750,6 +800,11 @@
   document.getElementById('resetCartBtn')?.addEventListener('click', resetCart);
   document.getElementById('closeInvoiceBtn')?.addEventListener('click', () => document.getElementById('invoiceModal').style.display = 'none');
   window.addEventListener('click', (e) => { if (e.target === document.getElementById('invoiceModal')) document.getElementById('invoiceModal').style.display = 'none'; });
+  
+  // Navigation payment button - scroll to payment section
+  document.getElementById('navPaymentBtn')?.addEventListener('click', () => {
+    document.getElementById('paymentSection').scrollIntoView({ behavior: 'smooth' });
+  });
 
   function submitReservation() {
     let name = document.getElementById('resName').value.trim();
@@ -758,6 +813,7 @@
     if(!name || !email || !date) { document.getElementById('resMessage').innerHTML = '⚠️ Name, email and date required.'; return; }
     document.getElementById('resMessage').innerHTML = `📅 Reservation sent! ${name} on ${date}. We'll confirm via ${email}.`;
     document.getElementById('resName').value = ''; document.getElementById('resEmail').value = ''; document.getElementById('resNote').value = '';
+    setTimeout(() => { if(document.getElementById('resMessage').innerHTML.includes('sent')) document.getElementById('resMessage').innerHTML = '✨ Table reserved! Check your email.'; }, 3000);
   }
   document.getElementById('submitReservationBtn')?.addEventListener('click', submitReservation);
 
@@ -777,7 +833,7 @@
 
   // Tabs
   function initTabs() {
-    const btns = document.querySelectorAll('.nav-btn');
+    const btns = document.querySelectorAll('.nav-btn:not(#navPaymentBtn)');
     const cats = {
       breakfastNav:document.getElementById('breakfastNav'),
       lunchNav:document.getElementById('lunchNav'),

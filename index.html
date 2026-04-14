@@ -19,7 +19,7 @@
       scroll-behavior: smooth;
     }
 
-    /* subtle grain texture */
+    /* subtle grain texture (preserved from original) */
     body::before {
       content: "";
       position: fixed;
@@ -34,29 +34,27 @@
     }
 
     .container {
-      max-width: 1400px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 24px 28px 60px;
+      padding: 24px 24px 60px;
       position: relative;
       z-index: 2;
     }
 
-    /* refined header - new logo (no gas station, but oil drop + coffee fusion) */
+    /* Header - preserved colors, new structure */
     .oil-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-bottom: 42px;
-      padding-bottom: 16px;
+      text-align: center;
+      margin-bottom: 48px;
+      padding-bottom: 20px;
       border-bottom: 1px solid #d9a06630;
     }
 
     .logo-new {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 12px;
+      margin-bottom: 8px;
     }
 
     .logo-icon {
@@ -65,7 +63,7 @@
     }
 
     .logo-text h1 {
-      font-size: 2.2rem;
+      font-size: 2.5rem;
       font-weight: 800;
       letter-spacing: -0.5px;
       background: linear-gradient(135deg, #f3d382, #c2813a, #e7ae68);
@@ -75,97 +73,96 @@
     }
 
     .logo-text p {
-      font-size: 0.7rem;
+      font-size: 0.8rem;
       color: #c9aa7b;
       letter-spacing: 1px;
     }
 
-    .reserve-trigger {
-      background: #d9a06620;
-      border: 1px solid #d9a066;
-      padding: 10px 24px;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: 0.2s;
-      color: #f2dbbd;
+    .tagline {
+      color: #bda68a;
+      font-size: 0.9rem;
+      margin-top: 8px;
     }
 
-    .reserve-trigger:hover {
-      background: #d9a066;
-      color: #0a0907;
-    }
-
-    /* main grid: menu + payment + reservation */
-    .dashboard-grid {
+    /* Navigation Tabs - like reference site */
+    .nav-tabs {
       display: flex;
       flex-wrap: wrap;
-      gap: 28px;
-    }
-
-    /* MENU PANEL */
-    .menu-panel {
-      flex: 2;
-      background: #13110ed9;
-      backdrop-filter: blur(3px);
-      border-radius: 36px;
-      padding: 26px 22px;
-      border: 1px solid #3a3128;
-    }
-
-    .category-tabs {
-      display: flex;
-      flex-wrap: wrap;
+      justify-content: center;
       gap: 12px;
-      margin-bottom: 28px;
+      margin-bottom: 40px;
       border-bottom: 1px solid #2f2922;
       padding-bottom: 16px;
     }
 
-    .cat-btn {
+    .nav-btn {
       background: transparent;
-      border: 1px solid #5b4c3c;
+      border: none;
       color: #e2cfb5;
-      padding: 8px 24px;
-      border-radius: 60px;
+      font-size: 1rem;
       font-weight: 600;
-      font-size: 0.85rem;
+      padding: 8px 24px;
+      border-radius: 40px;
       cursor: pointer;
       transition: 0.2s;
+      font-family: inherit;
     }
 
-    .cat-btn.active {
+    .nav-btn.active {
       background: #d9a066;
-      border-color: #d9a066;
       color: #0a0907;
+      box-shadow: 0 2px 8px rgba(217, 160, 102, 0.3);
     }
 
-    .menu-cat {
+    .nav-btn:hover:not(.active) {
+      background: #2f281f;
+    }
+
+    /* Menu Categories */
+    .menu-category {
       display: none;
-      animation: fade 0.2s ease;
+      animation: fadeIn 0.25s ease;
+      margin-bottom: 48px;
     }
 
-    .menu-cat.active-cat {
+    .menu-category.active-cat {
       display: block;
     }
 
-    @keyframes fade {
-      from { opacity: 0; transform: translateY(6px);}
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px);}
       to { opacity: 1; transform: translateY(0);}
+    }
+
+    .category-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      padding-left: 16px;
+      border-left: 4px solid #d9a066;
+    }
+
+    .menu-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
     .menu-row {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: baseline;
       flex-wrap: wrap;
       padding: 14px 0;
       border-bottom: 1px solid #2b2520;
-      gap: 10px;
+      gap: 12px;
     }
 
-    .item-info h4 {
+    .item-info {
+      flex: 3;
+    }
+
+    .item-name {
       font-weight: 700;
       font-size: 1rem;
     }
@@ -177,11 +174,12 @@
     }
 
     .price-badge {
+      font-weight: 700;
+      color: #ecc288;
       background: #26201b;
       padding: 4px 14px;
       border-radius: 40px;
-      font-weight: 700;
-      color: #ecc288;
+      font-size: 0.85rem;
     }
 
     .add-btn {
@@ -192,76 +190,101 @@
       font-weight: 600;
       font-size: 0.7rem;
       cursor: pointer;
+      color: #f2dbbd;
+      transition: 0.2s;
     }
 
-    /* RIGHT COLUMN: PAYMENT + RESERVATION */
-    .right-stack {
-      flex: 1.2;
-      min-width: 340px;
+    .add-btn:hover {
+      background: #d9a066;
+      color: #0a0907;
+    }
+
+    /* Services Section - like reference */
+    .services-section {
+      margin: 48px 0;
+      padding: 32px 0;
+      border-top: 1px solid #2f2922;
+      border-bottom: 1px solid #2f2922;
+    }
+
+    .services-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .services-grid {
       display: flex;
-      flex-direction: column;
-      gap: 28px;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
     }
 
-    /* PAYMENT CARD */
-    .payment-card {
+    .service-card {
+      background: #13110ed9;
+      backdrop-filter: blur(3px);
+      border-radius: 28px;
+      padding: 24px 20px;
+      flex: 1;
+      min-width: 200px;
+      text-align: center;
+      border: 1px solid #3a3128;
+      transition: 0.2s;
+    }
+
+    .service-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+
+    .service-card h4 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      color: #ecc288;
+    }
+
+    .service-card p {
+      font-size: 0.8rem;
+      color: #bda68a;
+    }
+
+    /* Payment Methods + Reservation + Cart */
+    .payment-reservation-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      margin-top: 32px;
+    }
+
+    .payment-card, .reservation-card, .cart-card {
       background: #12100c;
       border-radius: 32px;
       padding: 24px;
       border: 1px solid #3f352c;
+      flex: 1;
+      min-width: 260px;
     }
 
-    .cart-header {
-      font-size: 1.6rem;
+    .card-header {
+      font-size: 1.4rem;
       font-weight: 700;
       border-left: 4px solid #d9a066;
       padding-left: 16px;
       margin-bottom: 20px;
     }
 
-    .cart-list {
-      max-height: 260px;
-      overflow-y: auto;
-      margin-bottom: 20px;
-    }
-
-    .cart-item {
-      background: #1e1b17;
-      margin-bottom: 10px;
-      padding: 10px 14px;
-      border-radius: 28px;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .total-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 1.4rem;
-      font-weight: 800;
-      border-top: 2px solid #2f2a24;
-      padding-top: 16px;
-      margin: 16px 0;
-    }
-
-    /* Bank details + Telebirr */
     .bank-details {
       background: #0e2a1f30;
       border-radius: 28px;
-      padding: 18px;
+      padding: 16px;
       margin: 16px 0;
       border: 1px solid #d9a06640;
     }
 
-    .bank-details h4 {
-      font-size: 0.9rem;
-      margin-bottom: 12px;
-      color: #eac28e;
-    }
-
     .bank-number {
       font-family: monospace;
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 700;
       background: #030201;
       padding: 8px;
@@ -271,83 +294,110 @@
     }
 
     .vat-row {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: #c2a272;
       display: flex;
       justify-content: space-between;
     }
 
-    .telebirr-btn {
-      background: #004d40;
-      border: none;
+    .pay-btn, .telebirr-btn, .reserve-btn {
       width: 100%;
       padding: 12px;
       border-radius: 44px;
       font-weight: 700;
-      color: white;
       margin-top: 12px;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+    }
+
+    .pay-btn {
+      background: #d9a066;
+      color: #0a0907;
+    }
+
+    .telebirr-btn {
+      background: #004d40;
+      color: white;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      cursor: pointer;
     }
 
-    .pay-bank-btn {
-      background: #d9a066;
-      width: 100%;
-      padding: 12px;
-      border-radius: 44px;
-      font-weight: 800;
+    .reset-btn {
+      background: #2f2a24;
+      color: #ecc288;
       margin-top: 12px;
-      cursor: pointer;
     }
 
-    /* RESERVATION CARD */
-    .reservation-card {
-      background: #12100c;
-      border-radius: 32px;
-      padding: 24px;
-      border: 1px solid #c2844250;
+    .cart-list {
+      max-height: 220px;
+      overflow-y: auto;
+      margin-bottom: 16px;
+    }
+
+    .cart-item {
+      background: #1e1b17;
+      margin-bottom: 8px;
+      padding: 8px 12px;
+      border-radius: 28px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2rem;
+      font-weight: 800;
+      border-top: 2px solid #2f2a24;
+      padding-top: 12px;
+      margin: 12px 0;
+    }
+
+    .status-msg {
+      font-size: 0.7rem;
+      text-align: center;
+      margin-top: 12px;
+      color: #c2a272;
     }
 
     .reserve-form input, .reserve-form select, .reserve-form textarea {
       width: 100%;
       background: #1f1c18;
       border: 1px solid #4a3e32;
-      padding: 12px;
+      padding: 10px;
       border-radius: 28px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       color: #f0e2d2;
       font-family: inherit;
     }
 
-    .reserve-form button {
-      background: #d9a066;
-      border: none;
-      width: 100%;
-      padding: 12px;
-      border-radius: 40px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .status-msg {
-      font-size: 0.75rem;
+    footer {
       text-align: center;
-      margin-top: 12px;
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid #2f2922;
+      font-size: 0.7rem;
+      color: #8a7a68;
     }
 
     @media (max-width: 860px) {
       .container {
         padding: 16px;
       }
+      .nav-btn {
+        padding: 6px 16px;
+        font-size: 0.85rem;
+      }
     }
   </style>
 </head>
 <body>
 <div class="container">
-  <!-- header with brand new logo (sleek oil & coffee fusion, no gas station) -->
+  <!-- Header - preserved colors -->
   <div class="oil-header">
     <div class="logo-new">
       <div class="logo-icon">⚡☕</div>
@@ -356,104 +406,133 @@
         <p>ARTISAN ROAST • WILD KITCHEN • INFUSED ENERGY</p>
       </div>
     </div>
-    <div class="reserve-trigger" id="scrollToReserveBtn">📅 RESERVE TABLE</div>
+    <div class="tagline">Bold brews • Smooth extracts • Wild flavors</div>
   </div>
 
-  <div class="dashboard-grid">
-    <!-- MENU SECTION -->
-    <div class="menu-panel">
-      <div class="category-tabs">
-        <button class="cat-btn active" data-cat="sandwichCat">🥪 SANDWICHES</button>
-        <button class="cat-btn" data-cat="chickenCat">🍗 CHICKEN</button>
-        <button class="cat-btn" data-cat="snackCat">🌯 SNACKS & WRAPS</button>
-        <button class="cat-btn" data-cat="breakfastCat">🍳 BREAKFAST</button>
-      </div>
+  <!-- Navigation Tabs (reference structure) -->
+  <div class="nav-tabs">
+    <button class="nav-btn active" data-cat="breakfastNav">🍳 Breakfast</button>
+    <button class="nav-btn" data-cat="lunchNav">🍗 Lunch & Sandwiches</button>
+    <button class="nav-btn" data-cat="snacksNav">🌯 Snacks & Wraps</button>
+    <button class="nav-btn" data-cat="beverageNav">☕ Beverages</button>
+  </div>
 
-      <!-- sandwiches -->
-      <div id="sandwichCat" class="menu-cat active-cat">
-        <div class="menu-row" data-name="Beef Steak Sandwich" data-price="690"><div class="item-info"><h4>BEEF STEAK SANDWICH</h4><div class="item-desc-small">Beef, onion, tomato, zucchini, cheese, brown bread</div></div><div class="price-badge">690 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Vegetable Sandwich" data-price="400"><div class="item-info"><h4>VEGETABLE SANDWICH</h4><div class="item-desc-small">Tomato, onion, cabbage, carrot, garlic powder</div></div><div class="price-badge">400 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Egg Sandwich" data-price="390"><div class="item-info"><h4>EGG SANDWICH</h4><div class="item-desc-small">Lettuce, tomato, onion, egg, brown bread</div></div><div class="price-badge">390 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Tuna Sandwich" data-price="700"><div class="item-info"><h4>TUNA SANDWICH</h4><div class="item-desc-small">Tuna, mayo, onion, tomato, oil</div></div><div class="price-badge">700 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="House Special Club" data-price="770"><div class="item-info"><h4>HOUSE SPECIAL CLUB</h4><div class="item-desc-small">Grilled chicken, egg, mayo, tomato</div></div><div class="price-badge">770 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Chicken Cheese Sandwich" data-price="730"><div class="item-info"><h4>CHICKEN CHEESE SANDWICH</h4><div class="item-desc-small">Grilled chicken, cheese, onion, mayo</div></div><div class="price-badge">730 EGP</div><button class="add-btn">+ add</button></div>
-      </div>
-      <!-- chicken -->
-      <div id="chickenCat" class="menu-cat">
-        <div class="menu-row" data-name="Chicken Breast" data-price="990"><div class="item-info"><h4>CHICKEN BREAST</h4><div class="item-desc-small">Grilled breast, zucchini, garlic, frisée</div></div><div class="price-badge">990 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Chicken Leg" data-price="950"><div class="item-info"><h4>CHICKEN LEG</h4><div class="item-desc-small">BBQ sauce, mustard, fries</div></div><div class="price-badge">950 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Chicken Wing" data-price="930"><div class="item-info"><h4>CHICKEN WING</h4><div class="item-desc-small">Grilled wings, BBQ, garlic</div></div><div class="price-badge">930 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Chicken Nugget" data-price="950"><div class="item-info"><h4>CHICKEN NUGGET</h4><div class="item-desc-small">Curry powder, BBQ sauce, fries</div></div><div class="price-badge">950 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Chicken Cutlet" data-price="930"><div class="item-info"><h4>CHICKEN CUTLET</h4><div class="item-desc-small">Egg, BBQ, mustard, fries</div></div><div class="price-badge">930 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Chicken Salad" data-price="850"><div class="item-info"><h4>CHICKEN SALAD</h4><div class="item-desc-small">Lettuce, cucumber, dressing, mustard</div></div><div class="price-badge">850 EGP</div><button class="add-btn">+ add</button></div>
-      </div>
-      <!-- snacks wraps full -->
-      <div id="snackCat" class="menu-cat">
-        <div class="menu-row" data-name="Veggie Mini Burger" data-price="390"><div class="item-info"><h4>VEGGIE MINI BURGER</h4><div class="item-desc-small">Beans, lettuce, tomato, oil</div></div><div class="price-badge">390 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Beef Mini Burger" data-price="430"><div class="item-info"><h4>BEEF MINI BURGER</h4><div class="item-desc-small">Minced beef, onion, lettuce</div></div><div class="price-badge">430 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Chicken Wrap" data-price="710"><div class="item-info"><h4>CHICKEN WRAP</h4><div class="item-desc-small">Teff flour, caesar dressing</div></div><div class="price-badge">710 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Vegetable Wrap" data-price="400"><div class="item-info"><h4>VEGETABLE WRAP</h4><div class="item-desc-small">Cabbage, carrot, cucumber</div></div><div class="price-badge">400 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Beef Burrito" data-price="790"><div class="item-info"><h4>BEEF BURRITO</h4><div class="item-desc-small">Beef, onion, carrot, flour</div></div><div class="price-badge">790 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Chicken Burrito" data-price="790"><div class="item-info"><h4>CHICKEN BURRITO</h4><div class="item-desc-small">Chicken, tomato, onion, oil</div></div><div class="price-badge">790 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Fried Egg & Avocado" data-price="480"><div class="item-info"><h4>FRIED EGG & AVOCADO</h4><div class="item-desc-small">Avocado, olive oil, brown bread</div></div><div class="price-badge">480 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Polpette Avocado" data-price="750"><div class="item-info"><h4>POLPETTE AVOCADO</h4><div class="item-desc-small">Cheese, egg, bread, avocado</div></div><div class="price-badge">750 EGP</div><button class="add-btn">+ add</button></div>
-      </div>
-      <!-- breakfast -->
-      <div id="breakfastCat" class="menu-cat">
-        <div class="menu-row" data-name="Wild Combo" data-price="690"><div class="item-info"><h4>WILD COMBO</h4><div class="item-desc-small">Waffle, chicken, sausage, fried egg</div></div><div class="price-badge">690 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Special Foul" data-price="480"><div class="item-info"><h4>SPECIAL FOUL</h4><div class="item-desc-small">Beans, egg, brown bread</div></div><div class="price-badge">480 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Teff Checkeressa" data-price="420"><div class="item-info"><h4>TEFF CHECKERESSA</h4><div class="item-desc-small">Teff, olive oil, honey</div></div><div class="price-badge">420 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Waffle & Chicken" data-price="480"><div class="item-info"><h4>WAFFLE & CHICKEN</h4><div class="item-desc-small">Fried chicken, milk, egg</div></div><div class="price-badge">480 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Wild Toast" data-price="430"><div class="item-info"><h4>WILD TOAST</h4><div class="item-desc-small">Avocado, egg, brown bread</div></div><div class="price-badge">430 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="French Toast" data-price="420"><div class="item-info"><h4>FRENCH TOAST</h4><div class="item-desc-small">Egg, milk, lettuce</div></div><div class="price-badge">420 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Croissant Sandwich" data-price="420"><div class="item-info"><h4>CROISSANT SANDWICH</h4><div class="item-desc-small">Egg, lettuce, tomato</div></div><div class="price-badge">420 EGP</div><button class="add-btn">+ add</button></div>
-        <div class="menu-row" data-name="Chicken Quesadilla" data-price="790"><div class="item-info"><h4>CHICKEN QUESADILLA</h4><div class="item-desc-small">Flour, spinach, grilled chicken</div></div><div class="price-badge">790 EGP</div><button class="add-btn">+ add</button></div>
-      </div>
+  <!-- BREAKFAST CATEGORY -->
+  <div id="breakfastNav" class="menu-category active-cat">
+    <div class="category-title">☀️ Breakfast</div>
+    <div class="menu-grid">
+      <div class="menu-row" data-name="Wild Combo" data-price="690"><div class="item-info"><div class="item-name">WILD COMBO</div><div class="item-desc-small">Waffle, chicken, beef sausage, fried egg, toasted bread</div></div><div class="price-badge">690 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Special Foul" data-price="480"><div class="item-info"><div class="item-name">SPECIAL FOUL</div><div class="item-desc-small">Tomato, onion, beans, egg, brown bread</div></div><div class="price-badge">480 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Teff Checkeressa" data-price="420"><div class="item-info"><div class="item-name">TEFF CHECKERESSA</div><div class="item-desc-small">Teff flour, olive oil, honey</div></div><div class="price-badge">420 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Waffle & Chicken" data-price="480"><div class="item-info"><div class="item-name">WAFFLE & CHICKEN</div><div class="item-desc-small">Fried chicken, flour, egg, milk</div></div><div class="price-badge">480 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Wild Toast" data-price="430"><div class="item-info"><div class="item-name">WILD TOAST</div><div class="item-desc-small">Egg, avocado, brown bread</div></div><div class="price-badge">430 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="French Toast" data-price="420"><div class="item-info"><div class="item-name">FRENCH TOAST</div><div class="item-desc-small">Egg, toasted bread, milk, lettuce</div></div><div class="price-badge">420 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Croissant Sandwich" data-price="420"><div class="item-info"><div class="item-name">CROISSANT SANDWICH</div><div class="item-desc-small">Croissant, egg, lettuce, tomato</div></div><div class="price-badge">420 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Wild Omelette" data-price="470"><div class="item-info"><div class="item-name">WILD SPECIAL OMELETTE</div><div class="item-desc-small">Egg, spinach, sweet corn, cheese</div></div><div class="price-badge">470 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Egg Benedict" data-price="520"><div class="item-info"><div class="item-name">EGG BENEDICT</div><div class="item-desc-small">Smoked beef, lettuce, ayib, slice bread</div></div><div class="price-badge">520 EGP</div><button class="add-btn">+ order</button></div>
+    </div>
+  </div>
+
+  <!-- LUNCH & SANDWICHES (Chicken + Sandwiches combined) -->
+  <div id="lunchNav" class="menu-category">
+    <div class="category-title">🍛 Lunch & Sandwiches</div>
+    <div class="menu-grid">
+      <div class="menu-row" data-name="Beef Steak Sandwich" data-price="690"><div class="item-info"><div class="item-name">BEEF STEAK SANDWICH</div><div class="item-desc-small">Beef, onion, tomato, zucchini, cheese, brown bread</div></div><div class="price-badge">690 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Chicken Cheese Sandwich" data-price="730"><div class="item-info"><div class="item-name">CHICKEN CHEESE SANDWICH</div><div class="item-desc-small">Grilled chicken, cheese, onion, mayo</div></div><div class="price-badge">730 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="House Special Club" data-price="770"><div class="item-info"><div class="item-name">HOUSE SPECIAL CLUB</div><div class="item-desc-small">Grilled chicken, egg, mayo, tomato</div></div><div class="price-badge">770 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Tuna Sandwich" data-price="700"><div class="item-info"><div class="item-name">TUNA SANDWICH</div><div class="item-desc-small">Tuna, mayo, onion, tomato</div></div><div class="price-badge">700 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Chicken Breast" data-price="990"><div class="item-info"><div class="item-name">CHICKEN BREAST</div><div class="item-desc-small">Grilled breast, zucchini, garlic, frisée</div></div><div class="price-badge">990 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Chicken Leg" data-price="950"><div class="item-info"><div class="item-name">CHICKEN LEG</div><div class="item-desc-small">BBQ sauce, mustard, fries</div></div><div class="price-badge">950 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Chicken Wing" data-price="930"><div class="item-info"><div class="item-name">CHICKEN WING</div><div class="item-desc-small">Grilled wings, BBQ, garlic</div></div><div class="price-badge">930 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Chicken Nugget" data-price="950"><div class="item-info"><div class="item-name">CHICKEN NUGGET</div><div class="item-desc-small">Curry powder, BBQ sauce, fries</div></div><div class="price-badge">950 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Chicken Salad" data-price="850"><div class="item-info"><div class="item-name">CHICKEN SALAD</div><div class="item-desc-small">Lettuce, cucumber, dressing, mustard</div></div><div class="price-badge">850 EGP</div><button class="add-btn">+ order</button></div>
+    </div>
+  </div>
+
+  <!-- SNACKS & WRAPS -->
+  <div id="snacksNav" class="menu-category">
+    <div class="category-title">🌯 Snacks & Wraps</div>
+    <div class="menu-grid">
+      <div class="menu-row" data-name="Veggie Mini Burger" data-price="390"><div class="item-info"><div class="item-name">VEGGIE MINI BURGER</div><div class="item-desc-small">Beans, lettuce, tomato, oil</div></div><div class="price-badge">390 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Beef Mini Burger" data-price="430"><div class="item-info"><div class="item-name">BEEF MINI BURGER</div><div class="item-desc-small">Minced beef, onion, lettuce</div></div><div class="price-badge">430 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Chicken Wrap" data-price="710"><div class="item-info"><div class="item-name">CHICKEN WRAP</div><div class="item-desc-small">Teff flour, caesar dressing, lettuce</div></div><div class="price-badge">710 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Vegetable Wrap" data-price="400"><div class="item-info"><div class="item-name">VEGETABLE WRAP</div><div class="item-desc-small">Cabbage, carrot, cucumber, zucchini</div></div><div class="price-badge">400 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Beef Burrito" data-price="790"><div class="item-info"><div class="item-name">BEEF BURRITO</div><div class="item-desc-small">Beef, onion, carrot, flour</div></div><div class="price-badge">790 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Chicken Burrito" data-price="790"><div class="item-info"><div class="item-name">CHICKEN BURRITO</div><div class="item-desc-small">Chicken, tomato, onion, oil</div></div><div class="price-badge">790 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Fried Egg & Avocado" data-price="480"><div class="item-info"><div class="item-name">FRIED EGG & AVOCADO</div><div class="item-desc-small">Avocado, olive oil, brown bread</div></div><div class="price-badge">480 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Polpette Avocado" data-price="750"><div class="item-info"><div class="item-name">POLPETTE AVOCADO</div><div class="item-desc-small">Cheese, egg, bread, avocado</div></div><div class="price-badge">750 EGP</div><button class="add-btn">+ order</button></div>
+    </div>
+  </div>
+
+  <!-- BEVERAGES (new section) -->
+  <div id="beverageNav" class="menu-category">
+    <div class="category-title">🥤 Beverages</div>
+    <div class="menu-grid">
+      <div class="menu-row" data-name="Espresso" data-price="120"><div class="item-info"><div class="item-name">ESPRESSO</div><div class="item-desc-small">Strong single shot, rich crema</div></div><div class="price-badge">120 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Americano" data-price="150"><div class="item-info"><div class="item-name">AMERICANO</div><div class="item-desc-small">Espresso with hot water</div></div><div class="price-badge">150 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Cappuccino" data-price="180"><div class="item-info"><div class="item-name">CAPPUCCINO</div><div class="item-desc-small">Espresso, steamed milk, foam</div></div><div class="price-badge">180 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Latte" data-price="190"><div class="item-info"><div class="item-name">LATTE</div><div class="item-desc-small">Smooth espresso with creamy milk</div></div><div class="price-badge">190 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Mocha" data-price="210"><div class="item-info"><div class="item-name">MOCHA</div><div class="item-desc-small">Chocolate, espresso, steamed milk</div></div><div class="price-badge">210 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Fresh Juice" data-price="160"><div class="item-info"><div class="item-name">FRESH JUICE</div><div class="item-desc-small">Orange, mango, or mixed</div></div><div class="price-badge">160 EGP</div><button class="add-btn">+ order</button></div>
+      <div class="menu-row" data-name="Tea" data-price="90"><div class="item-info"><div class="item-name">HOT TEA</div><div class="item-desc-small">Black or herbal</div></div><div class="price-badge">90 EGP</div><button class="add-btn">+ order</button></div>
+    </div>
+  </div>
+
+  <!-- SERVICES SECTION (like reference) -->
+  <div class="services-section">
+    <div class="services-title">✨ Our Services</div>
+    <div class="services-grid">
+      <div class="service-card"><div class="service-icon">🚚</div><h4>Fast Delivery</h4><p>Hot & fresh dishes delivered to your doorstep. Free delivery within 5km.</p><p style="font-size:0.7rem; margin-top:6px;">⏱️ 30-45 min • Free tracking</p></div>
+      <div class="service-card"><div class="service-icon">🏪</div><h4>Easy Pickup</h4><p>Order online and pick up at our cafe. Skip the line, just grab your meal.</p></div>
+      <div class="service-card"><div class="service-icon">🍽️</div><h4>Table Reservation</h4><p>Reserve your cozy table for breakfast, lunch, or evening coffee.</p></div>
+      <div class="service-card"><div class="service-icon">🌿</div><h4>Backyard Space</h4><p>Enjoy our peaceful garden with traditional seating. Perfect for coffee ceremonies.</p></div>
+    </div>
+  </div>
+
+  <!-- PAYMENT + RESERVATION + CART (three column layout) -->
+  <div class="payment-reservation-row">
+    <!-- Cart Card -->
+    <div class="cart-card">
+      <div class="card-header">🛒 Your Order</div>
+      <div id="cartList" class="cart-list">✨ No items yet — add bold flavors</div>
+      <div class="total-row"><span>TOTAL (incl. VAT)</span><span id="cartTotal">0 EGP</span></div>
+      <button id="resetCartBtn" class="reset-btn" style="width:100%;">🗑️ Clear Cart</button>
     </div>
 
-    <!-- RIGHT: PAYMENT + RESERVATION -->
-    <div class="right-stack">
-      <!-- PAYMENT CARD -->
-      <div class="payment-card">
-        <div class="cart-header">🛒 OILED ORDER</div>
-        <div id="cartList" class="cart-list">✨ No items yet — add bold flavors</div>
-        <div class="total-row"><span>TOTAL (incl. VAT)</span><span id="cartTotal">0 EGP</span></div>
-        
-        <!-- explicit bank details + vat -->
-        <div class="bank-details">
-          <h4>🏦 BANK TRANSFER (DEMO)</h4>
-          <div class="bank-number">EG38 0010 1234 5678 9012 3456 7890</div>
-          <div class="vat-row"><span>ACCOUNT NAME: OILED COFFEE</span><span>SWIFT: OILCEC30</span></div>
-          <div class="vat-row"><span>VAT 14% included</span><span>TAX ID: 512-987-654</span></div>
-        </div>
-
-        <button id="bankPayBtn" class="pay-bank-btn">💳 PAY WITH BANK (DEMO)</button>
-        <button id="telebirrPayBtn" class="telebirr-btn">📱 TELEBIRR | 09XX-1234567 (Demo)</button>
-        <div id="paymentStatus" class="status-msg" style="margin-top: 14px;">✅ ready • bank / telebirr demo</div>
-        <button id="resetCartBtn" style="background:#2f2a24; margin-top:12px; border:none; padding:10px; border-radius:40px; color:#ecc288; cursor:pointer;">🗑️ RESET CART</button>
+    <!-- Payment Card with Bank + Telebirr -->
+    <div class="payment-card">
+      <div class="card-header">💳 Payment Methods</div>
+      <div class="bank-details">
+        <h4 style="font-size:0.9rem;">🏦 Bank Transfer (Demo)</h4>
+        <div class="bank-number">EG38 0010 1234 5678 9012 3456 7890</div>
+        <div class="vat-row"><span>OILED COFFEE</span><span>SWIFT: OILCEC30</span></div>
+        <div class="vat-row"><span>VAT 14% included</span><span>Tax ID: 512-987-654</span></div>
       </div>
+      <button id="bankPayBtn" class="pay-btn">💳 Pay with Bank Transfer</button>
+      <button id="telebirrPayBtn" class="telebirr-btn">📱 Telebirr | 09XX-1234567 (Demo)</button>
+      <div id="paymentStatus" class="status-msg">✅ ready • bank / telebirr demo</div>
+    </div>
 
-      <!-- RESERVATION TABLE SERVICE -->
-      <div class="reservation-card" id="reservationSection">
-        <div class="cart-header" style="border-left-color: #b48c54;">📋 RESERVE TABLE</div>
-        <div class="reserve-form">
-          <input type="text" id="resName" placeholder="Full name" autocomplete="off">
-          <input type="email" id="resEmail" placeholder="Email address">
-          <input type="tel" id="resPhone" placeholder="Phone number (optional)">
-          <input type="date" id="resDate">
-          <select id="resTime">
-            <option value="18:00">18:00</option><option value="19:00">19:00</option><option value="20:00">20:00</option><option value="21:00">21:00</option>
-          </select>
-          <select id="resGuests">
-            <option value="2">2 guests</option><option value="4">4 guests</option><option value="6">6 guests</option><option value="8">8+ guests</option>
-          </select>
-          <textarea id="resNote" rows="2" placeholder="Special requests (allergies, etc.)"></textarea>
-          <button id="submitReservationBtn">✔️ REQUEST RESERVATION</button>
-          <div id="resMessage" class="status-msg"></div>
-        </div>
+    <!-- Reservation Card -->
+    <div class="reservation-card">
+      <div class="card-header">📋 Table Reservation</div>
+      <div class="reserve-form">
+        <input type="text" id="resName" placeholder="Full name">
+        <input type="email" id="resEmail" placeholder="Email address">
+        <input type="tel" id="resPhone" placeholder="Phone number">
+        <input type="date" id="resDate">
+        <select id="resTime"><option value="18:00">18:00</option><option value="19:00">19:00</option><option value="20:00">20:00</option><option value="21:00">21:00</option></select>
+        <select id="resGuests"><option value="2">2 guests</option><option value="4">4 guests</option><option value="6">6 guests</option><option value="8">8+ guests</option></select>
+        <textarea id="resNote" rows="2" placeholder="Special requests"></textarea>
+        <button id="submitReservationBtn" class="reserve-btn" style="background:#d9a066; color:#0a0907;">✔️ Request Reservation</button>
+        <div id="resMessage" class="status-msg"></div>
       </div>
     </div>
   </div>
+
+  <footer>
+    <p>© 2025 Oiled Coffee • Bold Brews & Wild Kitchen • Prices include VAT & service charge</p>
+  </footer>
 </div>
 
 <script>
@@ -475,44 +554,21 @@
     totalSpan.innerText = `${total} EGP`;
   }
   function addToCart(name, price) { cart.push({ name, price }); updateCartUI(); document.getElementById('paymentStatus').innerHTML = `➕ added "${name}" — total ${cart.reduce((s,i)=>s+i.price,0)} EGP`; setTimeout(() => { if(document.getElementById('paymentStatus').innerHTML.includes('added')) document.getElementById('paymentStatus').innerHTML = '✅ ready • bank / telebirr demo'; }, 1800); }
-  function resetCart() { cart = []; updateCartUI(); document.getElementById('paymentStatus').innerHTML = '🧹 Cart cleared. Add new items.'; setTimeout(() => { if(document.getElementById('paymentStatus').innerHTML.includes('cleared')) document.getElementById('paymentStatus').innerHTML = '✅ ready • bank / telebirr demo'; }, 1800); }
-  function bankPayment() {
-    let total = cart.reduce((s,i)=>s+i.price,0);
-    if(total===0){ document.getElementById('paymentStatus').innerHTML = '⚠️ Cart empty. Add items first.'; return; }
-    document.getElementById('paymentStatus').innerHTML = '🏦 Processing bank transfer (Demo account: EG38 0010 ...)';
-    setTimeout(() => { document.getElementById('paymentStatus').innerHTML = `✅ PAID ${total} EGP via BANK TRANSFER. VAT included. Thank you!`; cart = []; updateCartUI(); }, 1200);
-  }
-  function telebirrPayment() {
-    let total = cart.reduce((s,i)=>s+i.price,0);
-    if(total===0){ document.getElementById('paymentStatus').innerHTML = '⚠️ Cart empty for Telebirr.'; return; }
-    document.getElementById('paymentStatus').innerHTML = '📱 Telebirr payment request sent to 09XX-1234567 (demo)';
-    setTimeout(() => { document.getElementById('paymentStatus').innerHTML = `✅ Telebirr paid ${total} EGP | confirmation sent. Enjoy Oiled Coffee!`; cart = []; updateCartUI(); }, 1400);
-  }
-  // reservation logic
-  function submitReservation() {
-    let name = document.getElementById('resName').value.trim();
-    let email = document.getElementById('resEmail').value.trim();
-    let date = document.getElementById('resDate').value;
-    let time = document.getElementById('resTime').value;
-    let guests = document.getElementById('resGuests').value;
-    let note = document.getElementById('resNote').value;
-    if(!name || !email || !date) { document.getElementById('resMessage').innerHTML = '⚠️ Name, email and date required.'; return; }
-    document.getElementById('resMessage').innerHTML = `📅 Reservation request sent! ${name}, ${guests} guests on ${date} at ${time}. We'll confirm via ${email}. ☕`;
-    document.getElementById('resName').value = ''; document.getElementById('resEmail').value = ''; document.getElementById('resNote').value = '';
-    setTimeout(() => { if(document.getElementById('resMessage').innerHTML.includes('sent')) document.getElementById('resMessage').innerHTML = '✨ Table reserved! Check your email.'; }, 3000);
-  }
+  function resetCart() { cart = []; updateCartUI(); document.getElementById('paymentStatus').innerHTML = '🧹 Cart cleared.'; setTimeout(() => { if(document.getElementById('paymentStatus').innerHTML.includes('cleared')) document.getElementById('paymentStatus').innerHTML = '✅ ready • bank / telebirr demo'; }, 1800); }
+  function bankPayment() { let total = cart.reduce((s,i)=>s+i.price,0); if(total===0){ document.getElementById('paymentStatus').innerHTML = '⚠️ Cart empty.'; return; } document.getElementById('paymentStatus').innerHTML = '🏦 Processing bank transfer...'; setTimeout(() => { document.getElementById('paymentStatus').innerHTML = `✅ PAID ${total} EGP via BANK. Thank you!`; cart = []; updateCartUI(); }, 1200); }
+  function telebirrPayment() { let total = cart.reduce((s,i)=>s+i.price,0); if(total===0){ document.getElementById('paymentStatus').innerHTML = '⚠️ Cart empty.'; return; } document.getElementById('paymentStatus').innerHTML = '📱 Telebirr payment request sent to 09XX-1234567'; setTimeout(() => { document.getElementById('paymentStatus').innerHTML = `✅ Telebirr paid ${total} EGP. Enjoy!`; cart = []; updateCartUI(); }, 1400); }
+  function submitReservation() { let name = document.getElementById('resName').value.trim(); let email = document.getElementById('resEmail').value.trim(); let date = document.getElementById('resDate').value; if(!name || !email || !date) { document.getElementById('resMessage').innerHTML = '⚠️ Name, email and date required.'; return; } document.getElementById('resMessage').innerHTML = `📅 Reservation request sent! ${name} on ${date}. We'll confirm via ${email}.`; document.getElementById('resName').value = ''; document.getElementById('resEmail').value = ''; document.getElementById('resNote').value = ''; setTimeout(() => { if(document.getElementById('resMessage').innerHTML.includes('sent')) document.getElementById('resMessage').innerHTML = '✨ Table reserved! Check your email.'; }, 3000); }
 
-  // attach menu add events
+  // attach add events
   function attachAddEvents() { document.querySelectorAll('.add-btn').forEach(btn => { btn.removeEventListener('click', addHandler); btn.addEventListener('click', addHandler); }); }
-  function addHandler(e) { let row = e.target.closest('.menu-row'); if(row){ let name = row.getAttribute('data-name') || row.querySelector('h4')?.innerText; let price = parseInt(row.getAttribute('data-price') || row.querySelector('.price-badge')?.innerText); if(name && !isNaN(price)) addToCart(name, price); } }
-  // category tabs
-  function initTabs() { const btns = document.querySelectorAll('.cat-btn'); const cats = { sandwichCat:document.getElementById('sandwichCat'), chickenCat:document.getElementById('chickenCat'), snackCat:document.getElementById('snackCat'), breakfastCat:document.getElementById('breakfastCat') }; btns.forEach(btn=>{ btn.addEventListener('click',()=>{ let target = btn.getAttribute('data-cat'); btns.forEach(b=>b.classList.remove('active')); btn.classList.add('active'); Object.values(cats).forEach(c=>c.classList.remove('active-cat')); if(cats[target]) cats[target].classList.add('active-cat'); }); }); }
+  function addHandler(e) { let row = e.target.closest('.menu-row'); if(row){ let name = row.querySelector('.item-name')?.innerText; let priceElem = row.querySelector('.price-badge'); let price = priceElem ? parseInt(priceElem.innerText) : 0; if(name && !isNaN(price)) addToCart(name, price); } }
+  // tabs
+  function initTabs() { const btns = document.querySelectorAll('.nav-btn'); const cats = { breakfastNav:document.getElementById('breakfastNav'), lunchNav:document.getElementById('lunchNav'), snacksNav:document.getElementById('snacksNav'), beverageNav:document.getElementById('beverageNav') }; btns.forEach(btn=>{ btn.addEventListener('click',()=>{ let target = btn.getAttribute('data-cat'); btns.forEach(b=>b.classList.remove('active')); btn.classList.add('active'); Object.values(cats).forEach(c=>c.classList.remove('active-cat')); if(cats[target]) cats[target].classList.add('active-cat'); }); }); }
   document.getElementById('bankPayBtn')?.addEventListener('click', bankPayment);
   document.getElementById('telebirrPayBtn')?.addEventListener('click', telebirrPayment);
   document.getElementById('resetCartBtn')?.addEventListener('click', resetCart);
   document.getElementById('submitReservationBtn')?.addEventListener('click', submitReservation);
-  document.getElementById('scrollToReserveBtn')?.addEventListener('click', ()=> { document.getElementById('reservationSection').scrollIntoView({ behavior: 'smooth' }); });
-  initTabs(); attachAddEvents(); new MutationObserver(()=>attachAddEvents()).observe(document.querySelector('.menu-panel'), { childList: true, subtree: true });
+  initTabs(); attachAddEvents(); new MutationObserver(()=>attachAddEvents()).observe(document.querySelector('.container'), { childList: true, subtree: true });
 </script>
 </body>
 </html>
